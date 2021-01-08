@@ -13,6 +13,8 @@ namespace Securancy.Labs.KvkApi
         public KvkApiClient(KvkApiClientConfig config)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
+            if (string.IsNullOrEmpty(config.ApiKey)) throw new ArgumentNullException(nameof(config.ApiKey));
+            if (string.IsNullOrEmpty(config.Endpoint)) throw new ArgumentNullException(nameof(config.Endpoint));
             
             // initialize a HttpClient with custom handler, that uses the KvK-specific (root) certificates
             _http = new HttpClient(KvkCertificateBuilder.CreateHttpHandler());
