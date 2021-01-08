@@ -3,6 +3,15 @@
 ### What's the repo about?
 The purpose of this repository is to demonstrate how to consume the Kamer van Koophandel (KVK) API with C#/dotnet-core/.NET5, incl. using the custom TLS/SSL implementation of the root certificate used by Dutch governmental agencies.
 
+#### Warning - do the right thing
+There is a shortcut available if you're either too lazy to read through this, or if you simply can't be bothered, by skipping all certificate validation together. 
+Like so:
+
+    // don't... do this
+    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, _) => true;
+
+The warning is simple: just don't do it. [It was mentioned once but I think we got away with it...](https://hanssens.com/uncategorized/error-the-underlying-connection-was-closed-could-not-establish-trust-relationship-for-the-ssltls-secure-channel/) With this example it should be no excuse to do it properly.
+
 ### Why?
 The Kamer van Koophandel (KVK) is the national, governmental Chamber of Commerce in the Netherlands and provides an API to consult the register with all companies. 
 
@@ -16,7 +25,6 @@ The written instructions provide sysop/devops instructions for server operators 
 
 Issue 1. Certificates are provided only in .crt format, whilst some environments require it to be .cer
 Issue 2. No instructions for C#/dotnet, only for server operators
-
 
 ## Solutions
 
