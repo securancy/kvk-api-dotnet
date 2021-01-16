@@ -5,13 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Certs" />
+      <None Remove="Certs\*" />
+      <EmbeddedResource Include="Certs\*" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Certs\*">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.2" />
     </ItemGroup>
 
 </Project>
