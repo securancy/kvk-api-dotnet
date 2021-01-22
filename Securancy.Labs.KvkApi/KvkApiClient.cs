@@ -43,12 +43,12 @@ namespace Securancy.Labs.KvkApi
                 throw new Exception($"[{response.StatusCode}] {response.ReasonPhrase}");
         }
 
-        public async Task<CompanyBasicV2> SearchCompanies(SearchCompaniesParameters parameters)
+        public async Task<ApiResponseContainer<CompanyBasicV2>> SearchCompanies(SearchCompaniesParameters parameters)
         {
             var endpoint = $"{_config.Endpoint}/search/companies";
             
             // null checks
-            var queryParams = new Dictionary<String, String>();
+            var queryParams = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(parameters.Context)) queryParams.Add("context", parameters.Context);
             if (!string.IsNullOrEmpty(parameters.Query)) queryParams.Add("q", parameters.Query);
             if (!string.IsNullOrEmpty(parameters.Rsin)) queryParams.Add("rsin", parameters.Rsin);
@@ -61,7 +61,7 @@ namespace Securancy.Labs.KvkApi
             // validation
             if (string.IsNullOrEmpty(parameters.Query)) throw new Exception("Parameter 'q' is required");
             
-            return await _Execute<CompanyBasicV2>(endpoint, parameters: queryParams);
+            return await _Execute<ApiResponseContainer<CompanyBasicV2>>(endpoint, parameters: queryParams);
         }
 
         public async Task<CompanyBasicV2> TestSearchCompanies()
@@ -70,10 +70,21 @@ namespace Securancy.Labs.KvkApi
             return await _Execute<CompanyBasicV2>(endpoint);
         }
 
-        public async Task<CompanyExtendedV2> SearchProfiles(SearchProfileParameters parameters)
+        public async Task<ApiResponseContainer<CompanyExtendedV2>> SearchProfiles(SearchProfileParameters parameters)
         {
             var endpoint = $"{_config.Endpoint}/profile/companies";
-            throw new NotImplementedException();
+            
+            // null checks
+            var queryParams = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(parameters.Context)) queryParams.Add("context", parameters.Context);
+            if (!string.IsNullOrEmpty(parameters.Query)) queryParams.Add("q", parameters.Query);
+            if (!string.IsNullOrEmpty(parameters.Rsin)) queryParams.Add("rsin", parameters.Rsin);
+            if (!string.IsNullOrEmpty(parameters.BranchNumber)) queryParams.Add("branchnumber", parameters.BranchNumber);
+            if (!string.IsNullOrEmpty(parameters.KvkNumber)) queryParams.Add("kvknumber", parameters.KvkNumber);
+            if (parameters.IncludeInactiveRegistrations.HasValue) queryParams.Add("includeInactiveRegistrations", parameters.IncludeInactiveRegistrations.ToString().ToLower());
+            if (parameters.RestrictToMainBranch.HasValue) queryParams.Add("restrictToMainBranch", parameters.RestrictToMainBranch.ToString().ToLower());
+            
+            return await _Execute<ApiResponseContainer<CompanyExtendedV2>>(endpoint, parameters: queryParams);
         }
         
         public async Task<CompanyBasicV2> TestSearchProfiles()

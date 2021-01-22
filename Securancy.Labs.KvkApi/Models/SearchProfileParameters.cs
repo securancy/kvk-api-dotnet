@@ -22,17 +22,12 @@ namespace Securancy.Labs.KvkApi.Models
         /// <summary>
         /// Indication (true/false) to include searching through inactive dossiers/deregistered companies. Default is false. Note: History of inactive companies is after 1 January 2013.
         /// </summary>
-        public bool IncludeInactiveRegistrations { get; set; }
+        public bool? IncludeInactiveRegistrations { get; set; }
 
         /// <summary>
         /// Search is restricted to main branches. Default is false.
         /// </summary>
-        public bool RestrictToMainBranch { get; set; }
-
-        /// <summary>
-        /// Defines the search collection for the query.
-        /// </summary>
-        public string Site { get; set; }
+        public bool? RestrictToMainBranch { get; set; }
 
         /// <summary>
         /// User can optionally add a context to identify his result later on.

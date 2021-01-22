@@ -7,26 +7,26 @@ using Xunit;
 
 namespace Securancy.Labs.KvkApi.Tests
 {
-    public class SearchCompaniesTests : BaseTests
+    public class SearchProfilesTests : BaseTests
     {
         [Fact, Category("Integration")]
-        public async Task TestSearchCompanies_Should_Success()
+        public async Task TestSearchProfiles_Should_Success()
         {
             var client = new KvkApiClient(_config);
-            var target = await client.TestSearchCompanies();
+            var target = await client.TestSearchProfiles();
             target.Should().NotBeNull();
         }
         
         [Fact, Category("Integration")]
-        public async Task SearchCompanies_Should_Success()
+        public async Task SearchProfiles_Should_Success()
         {
             var expectedName = "test";
             var client = new KvkApiClient(_config);
-            var request = new SearchCompaniesParameters()
+            var request = new SearchProfileParameters()
             {
                 Query = expectedName
             };
-            var target = await client.SearchCompanies(request);
+            var target = await client.SearchProfiles(request);
             target.Should().NotBeNull();
             target.Data.Items.Count.Should().BeGreaterOrEqualTo(1);
 
