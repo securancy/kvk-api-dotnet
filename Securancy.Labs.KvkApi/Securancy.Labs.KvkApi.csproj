@@ -10,7 +10,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Hanssens.Net.Extensions" Version="2.1.1" />
       <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
 </Project>
