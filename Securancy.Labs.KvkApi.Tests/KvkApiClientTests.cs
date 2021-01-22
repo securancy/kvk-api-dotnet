@@ -5,14 +5,8 @@ using Xunit;
 
 namespace Securancy.Labs.KvkApi.Tests
 {
-    public class KvkApiClientTests
+    public class KvkApiClientTests : BaseTests
     {
-        private KvkApiClientConfig _config = new KvkApiClientConfig()
-        {
-            Endpoint = "",
-            ApiKey = ""
-        };
-        
         [Fact]
         public void ConstructorTest()
         {
