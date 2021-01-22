@@ -2,8 +2,29 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        
+        <!-- NuGet Settings -->
+        <PackageId>Securancy.Labs.KvkApi</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>hanssens</Authors>
+        <Company>Securancy Intelligence</Company>
+        <RepositoryUrl>https://github.com/securancy/kvk-api-dotnet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/securancy/kvk-api-dotnet</PackageProjectUrl>
+        <PackageTags>kvk;kamer;koophandel;chamber;commerce;nederland;certificate</PackageTags>
+        <PackageReleaseNotes>Release notes can be found at https://github.com/securancy/kvk-api-dotnet/releases</PackageReleaseNotes>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Title>Kamer van Koophandel (KVK) API client library for .NET</Title>
+        
+        <Description>
+            .NET client library for consuming the Dutch Kamer van Koophandel (KvK) API. 
+            Includes embedded SSL (root) certificates as provided by the Staat der Nederlanden.
+        </Description>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath="" />
+    </ItemGroup>
+    
     <ItemGroup>
       <None Remove="Certs\*" />
       <EmbeddedResource Include="Certs\*" />
