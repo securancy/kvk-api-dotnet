@@ -26,10 +26,11 @@ namespace Securancy.Labs.KvkApi
             var certificate = LoadCertFromEmbeddedResource($"Certs/{CUSTOM_ROOT_CERTIFICATE_FILENAME}");
             
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, _) => {
+
+#if NET5_0
                 chain.ChainPolicy.TrustMode = X509ChainTrustMode.CustomRootTrust;
-                
                 chain.ChainPolicy.CustomTrustStore.Add(certificate);
-                
+#endif       
                 // [optional] add any additional intermediate certs
                 // chain.ChainPolicy.ExtraStore.Add(LoadCert(...filename...));
                 
