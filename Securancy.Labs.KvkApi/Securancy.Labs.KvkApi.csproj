@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
         
         <!-- NuGet Settings -->
         <PackageId>Securancy.Labs.KvkApi</PackageId>
-        <Version>1.0.0</Version>
+        <Version>1.1.0</Version>
         <Authors>hanssens</Authors>
         <Company>Securancy Intelligence</Company>
         <RepositoryUrl>https://github.com/securancy/kvk-api-dotnet</RepositoryUrl>
