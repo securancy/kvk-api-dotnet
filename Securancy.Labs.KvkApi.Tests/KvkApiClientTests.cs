@@ -8,13 +8,14 @@ public class KvkApiClientTests : BaseTests
     [Fact]
     public void ConstructorTest()
     {
-        var target = new KvkApiClient(Config);
+        using var client = new HttpClient();
+        var target = new ZoekenKvkApiClient(Config, client);
         target.Should().NotBeNull();
     }
         
     [Fact]
     public void ConstructorShouldFailWithNullConfig()
     {
-        Assert.Throws<ArgumentNullException>(() => new KvkApiClient(config: null));
+        Assert.Throws<ArgumentNullException>(() => new ZoekenKvkApiClient(null, null));
     }
 }

@@ -11,8 +11,9 @@ public class SearchProfilesTests : BaseTests
     public async Task SearchProfiles_Should_Success()
     {
         var expectedKvKNumber = "56701888";
-        var client = new KvkApiClient(Config);
-        var target = await client.SearchBasicProfile(expectedKvKNumber);
+        using var httpClient = new HttpClient();
+        var client = new BasisprofielKvkApiClient(Config, httpClient);
+        var target = await client.GetBasisprofielByKvkNummerAsync(expectedKvKNumber);
         target.Should().NotBeNull();
         target.KvkNummer.Should().BeEquivalentTo(expectedKvKNumber);
     }
