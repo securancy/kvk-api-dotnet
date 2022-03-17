@@ -92,7 +92,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "KvkApiClient.cs",
+      "output": "KvkApi.cs",
       "newLineBehavior": "Auto"
     }
   }
