@@ -13,7 +13,6 @@ resources:
       type: github
       name: securancy/azure-pipeline-templates
       endpoint: securancy
-      ref: refs/heads/dotnet-nuget
 extends:
   template: dotnet-nuget.yml@templates
   parameters:
