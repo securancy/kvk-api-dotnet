@@ -6,6 +6,8 @@ pr:
 
 pool:
   name: Default
+  demands:
+  - agent.name -equals HEARTWORK
 
 resources:
   repositories:
