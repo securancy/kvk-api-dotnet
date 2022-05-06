@@ -1,8 +1,7 @@
-namespace Securancy.Labs.KvkApi
+namespace Securancy.Labs.KvkApi;
+
+public class KvkApiClientConfig
 {
-    public class KvkApiClientConfig
-    {
-        public string Endpoint { get; set; }
-        public string ApiKey { get; set; }
-    }
+    public string Endpoint { get; set; }
+    public string ApiKey { get; set; }
 }

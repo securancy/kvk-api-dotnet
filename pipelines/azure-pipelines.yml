@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  name: Default
+  demands:
+  - agent.name -equals HEARTWORK
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: securancy/azure-pipeline-templates
+      endpoint: securancy
+extends:
+  template: dotnet-nuget.yml@templates
+  parameters:
+    dotNetVersion: '6.0.x'
+    feed: 'heartwork'
+    environment: 'Production'

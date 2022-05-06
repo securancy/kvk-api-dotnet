@@ -1,0 +1,1702 @@
+openapi: 3.0.1
+info:
+  title: Kamer van Koophandel
+  description: Documentatie voor API Basisprofiel.
+  version: '1.0'
+servers:
+  - url: https://api.securancy.io/services/api/kvk
+paths:
+  '/v1/basisprofielen/{kvkNummer}':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf basisinformatie opvragen.
+      description: Voor een specifiek bedrijf basisinformatie opvragen.
+      operationId: get-basisprofiel-by-kvkNummer
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Basisprofiel'
+              example:
+                kvkNummer: string
+                indNonMailing: string
+                naam: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                totaalWerkzamePersonen: 0
+                statutaireNaam: string
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+                _embedded:
+                  hoofdvestiging:
+                    vestigingsnummer: string
+                    kvkNummer: string
+                    rsin: string
+                    indNonMailing: string
+                    formeleRegistratiedatum: string
+                    materieleRegistratie:
+                      datumAanvang: string
+                      datumEinde: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indCommercieleVestiging: string
+                    voltijdWerkzamePersonen: 0
+                    totaalWerkzamePersonen: 0
+                    deeltijdWerkzamePersonen: 0
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    websites:
+                      - string
+                    sbiActiviteiten:
+                      - sbiCode: string
+                        sbiOmschrijving: string
+                        indHoofdactiviteit: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                  eigenaar:
+                    rsin: string
+                    rechtsvorm: string
+                    uitgebreideRechtsvorm: string
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Basisprofiel'
+              example:
+                kvkNummer: string
+                indNonMailing: string
+                naam: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                totaalWerkzamePersonen: 0
+                statutaireNaam: string
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+                _embedded:
+                  hoofdvestiging:
+                    vestigingsnummer: string
+                    kvkNummer: string
+                    rsin: string
+                    indNonMailing: string
+                    formeleRegistratiedatum: string
+                    materieleRegistratie:
+                      datumAanvang: string
+                      datumEinde: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indCommercieleVestiging: string
+                    voltijdWerkzamePersonen: 0
+                    totaalWerkzamePersonen: 0
+                    deeltijdWerkzamePersonen: 0
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    websites:
+                      - string
+                    sbiActiviteiten:
+                      - sbiCode: string
+                        sbiOmschrijving: string
+                        indHoofdactiviteit: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                  eigenaar:
+                    rsin: string
+                    rechtsvorm: string
+                    uitgebreideRechtsvorm: string
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Basisprofiel'
+              example:
+                kvkNummer: string
+                indNonMailing: string
+                naam: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                totaalWerkzamePersonen: 0
+                statutaireNaam: string
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+                _embedded:
+                  hoofdvestiging:
+                    vestigingsnummer: string
+                    kvkNummer: string
+                    rsin: string
+                    indNonMailing: string
+                    formeleRegistratiedatum: string
+                    materieleRegistratie:
+                      datumAanvang: string
+                      datumEinde: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indCommercieleVestiging: string
+                    voltijdWerkzamePersonen: 0
+                    totaalWerkzamePersonen: 0
+                    deeltijdWerkzamePersonen: 0
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    websites:
+                      - string
+                    sbiActiviteiten:
+                      - sbiCode: string
+                        sbiOmschrijving: string
+                        indHoofdactiviteit: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                  eigenaar:
+                    rsin: string
+                    rechtsvorm: string
+                    uitgebreideRechtsvorm: string
+                    adressen:
+                      - type: string
+                        indAfgeschermd: string
+                        volledigAdres: string
+                        straatnaam: string
+                        huisnummer: 0
+                        huisnummerToevoeging: string
+                        huisletter: string
+                        aanduidingBijHuisnummer: string
+                        toevoegingAdres: string
+                        postcode: string
+                        postbusnummer: 0
+                        plaats: string
+                        straatHuisnummer: string
+                        postcodeWoonplaats: string
+                        regio: string
+                        land: string
+                        geoData:
+                          addresseerbaarObjectId: string
+                          nummerAanduidingId: string
+                          gpsLatitude: 0
+                          gpsLongitude: 0
+                          rijksdriehoekX: 0
+                          rijksdriehoekY: 0
+                          rijksdriehoekZ: 0
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+  '/v1/basisprofielen/{kvkNummer}/eigenaar':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf eigenaar informatie opvragen.
+      description: Voor een specifiek bedrijf eigenaar informatie opvragen.
+      operationId: get-Eigenaar
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Eigenaar'
+              example:
+                rsin: string
+                rechtsvorm: string
+                uitgebreideRechtsvorm: string
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Eigenaar'
+              example:
+                rsin: string
+                rechtsvorm: string
+                uitgebreideRechtsvorm: string
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Eigenaar'
+              example:
+                rsin: string
+                rechtsvorm: string
+                uitgebreideRechtsvorm: string
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+  '/v1/basisprofielen/{kvkNummer}/hoofdvestiging':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+      description: Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+      operationId: get-Hoofdvestiging
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+  '/v1/basisprofielen/{kvkNummer}/vestigingen':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf een lijst met vestigingen opvragen.
+      description: Voor een specifiek bedrijf een lijst met vestigingen opvragen.
+      operationId: get-Vestigingen
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VestigingList'
+              example:
+                kvkNummer: string
+                aantalCommercieleVestigingen: 0
+                aantalNietCommercieleVestigingen: 0
+                totaalAantalVestigingen: 0
+                vestigingen:
+                  - vestigingsnummer: string
+                    kvkNummer: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indAdresAfgeschermd: string
+                    indCommercieleVestiging: string
+                    volledigAdres: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VestigingList'
+              example:
+                kvkNummer: string
+                aantalCommercieleVestigingen: 0
+                aantalNietCommercieleVestigingen: 0
+                totaalAantalVestigingen: 0
+                vestigingen:
+                  - vestigingsnummer: string
+                    kvkNummer: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indAdresAfgeschermd: string
+                    indCommercieleVestiging: string
+                    volledigAdres: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VestigingList'
+              example:
+                kvkNummer: string
+                aantalCommercieleVestigingen: 0
+                aantalNietCommercieleVestigingen: 0
+                totaalAantalVestigingen: 0
+                vestigingen:
+                  - vestigingsnummer: string
+                    kvkNummer: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indAdresAfgeschermd: string
+                    indCommercieleVestiging: string
+                    volledigAdres: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+  /v1/zoeken:
+    get:
+      tags:
+        - Zoeken
+      summary: Voor een bedrijf zoeken naar basisinformatie.
+      description: Er wordt max. 1000 resultaten getoond.
+      operationId: get-Results
+      parameters:
+        - name: kvkNummer
+          in: query
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+        - name: rsin
+          in: query
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+          schema:
+            pattern: '^[0-9]{9}$'
+            type: string
+        - name: vestigingsnummer
+          in: query
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+          schema:
+            pattern: '^[0-9]{12}$'
+            type: string
+        - name: handelsnaam
+          in: query
+          description: De naam waaronder een vestiging of rechtspersoon handelt
+          schema:
+            type: string
+        - name: straatnaam
+          in: query
+          schema:
+            type: string
+        - name: plaats
+          in: query
+          schema:
+            type: string
+        - name: postcode
+          in: query
+          description: Mag alleen in combinatie met Huisnummer gezocht worden
+          schema:
+            type: string
+        - name: huisnummer
+          in: query
+          description: Mag alleen in combinatie met Postcode gezocht worden
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: 'Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon'
+          schema:
+            type: string
+        - name: InclusiefInactieveRegistraties
+          in: query
+          description: 'Inclusief inactieve registraties: true, false'
+          schema:
+            type: boolean
+        - name: pagina
+          in: query
+          description: 'Paginanummer, minimaal 1 en maximaal 1000'
+          schema:
+            type: number
+            default: 1
+        - name: aantal
+          in: query
+          description: 'Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100'
+          schema:
+            type: number
+            default: 10
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Resultaat'
+              example:
+                pagina: 0
+                aantal: 0
+                totaal: 0
+                vorige: string
+                volgende: string
+                resultaten:
+                  - kvkNummer: string
+                    rsin: string
+                    vestigingsnummer: string
+                    handelsnaam: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    postcode: 'Postcode: bestaat uit 4 cijfers en 2 letters'
+                    plaats: string
+                    type: string
+                    actief: string
+                    vervallenNaam: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Resultaat'
+              example:
+                pagina: 0
+                aantal: 0
+                totaal: 0
+                vorige: string
+                volgende: string
+                resultaten:
+                  - kvkNummer: string
+                    rsin: string
+                    vestigingsnummer: string
+                    handelsnaam: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    postcode: 'Postcode: bestaat uit 4 cijfers en 2 letters'
+                    plaats: string
+                    type: string
+                    actief: string
+                    vervallenNaam: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Resultaat'
+              example:
+                pagina: 0
+                aantal: 0
+                totaal: 0
+                vorige: string
+                volgende: string
+                resultaten:
+                  - kvkNummer: string
+                    rsin: string
+                    vestigingsnummer: string
+                    handelsnaam: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    postcode: 'Postcode: bestaat uit 4 cijfers en 2 letters'
+                    plaats: string
+                    type: string
+                    actief: string
+                    vervallenNaam: string
+                    links:
+                      - rel: string
+                        href: string
+                        hreflang: string
+                        media: string
+                        title: string
+                        type: string
+                        deprecation: string
+                        profile: string
+                        name: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+  '/v1/vestigingsprofielen/{vestigingsnummer}':
+    get:
+      tags:
+        - Vestigingsprofiel
+      summary: Voor een specifieke vestiging informatie opvragen.
+      description: Voor een specifieke vestiging informatie opvragen.
+      operationId: get-Vestiging-By-Vestigingsnummer
+      parameters:
+        - name: vestigingsnummer
+          in: path
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+          required: true
+          schema:
+            pattern: '^[0-9]{12}$'
+            type: string
+        - name: geoData
+          in: query
+          description: 'GeoData: (true/false) geef aan of BAG data opgehaald moet worden'
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '400':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+        '500':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                adressen:
+                  - type: string
+                    indAfgeschermd: string
+                    volledigAdres: string
+                    straatnaam: string
+                    huisnummer: 0
+                    huisnummerToevoeging: string
+                    huisletter: string
+                    aanduidingBijHuisnummer: string
+                    toevoegingAdres: string
+                    postcode: string
+                    postbusnummer: 0
+                    plaats: string
+                    straatHuisnummer: string
+                    postcodeWoonplaats: string
+                    regio: string
+                    land: string
+                    geoData:
+                      addresseerbaarObjectId: string
+                      nummerAanduidingId: string
+                      gpsLatitude: 0
+                      gpsLongitude: 0
+                      rijksdriehoekX: 0
+                      rijksdriehoekY: 0
+                      rijksdriehoekZ: 0
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - rel: string
+                    href: string
+                    hreflang: string
+                    media: string
+                    title: string
+                    type: string
+                    deprecation: string
+                    profile: string
+                    name: string
+components:
+  schemas:
+    Adres:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Correspondentieadres en/of bezoekadres
+        indAfgeschermd:
+          type: string
+          description: Indicatie of het adres is afgeschermd
+        volledigAdres:
+          type: string
+        straatnaam:
+          type: string
+        huisnummer:
+          type: integer
+          format: int32
+        huisnummerToevoeging:
+          type: string
+        huisletter:
+          type: string
+        aanduidingBijHuisnummer:
+          type: string
+        toevoegingAdres:
+          type: string
+        postcode:
+          type: string
+        postbusnummer:
+          type: integer
+          format: int32
+        plaats:
+          type: string
+        straatHuisnummer:
+          type: string
+        postcodeWoonplaats:
+          type: string
+        regio:
+          type: string
+        land:
+          type: string
+        geoData:
+          $ref: '#/components/schemas/GeoData'
+    Basisprofiel:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        indNonMailing:
+          type: string
+          description: Hiermee geeft de onderneming aan geen ongevraagde reclame per post of verkoop aan de deur te willen ontvangen
+        naam:
+          type: string
+          description: Naam onder Maatschappelijke Activiteit
+        formeleRegistratiedatum:
+          type: string
+          description: Registratiedatum onderneming in HR
+        materieleRegistratie:
+          $ref: '#/components/schemas/MaterieleRegistratie'
+        totaalWerkzamePersonen:
+          type: integer
+          description: Totaal aantal werkzame personen
+          format: int32
+        statutaireNaam:
+          type: string
+          description: De naam van de onderneming wanneer er statuten geregistreerd zijn.
+        handelsnamen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Handelsnaam'
+          description: Alle namen waaronder een onderneming of vestiging handelt (op volgorde van registreren)
+        sbiActiviteiten:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBIActiviteit'
+          description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedContainer'
+    Eigenaar:
+      type: object
+      properties:
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        rechtsvorm:
+          type: string
+        uitgebreideRechtsvorm:
+          type: string
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Adres'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    EmbeddedContainer:
+      type: object
+      properties:
+        hoofdvestiging:
+          $ref: '#/components/schemas/Vestiging'
+        eigenaar:
+          $ref: '#/components/schemas/Eigenaar'
+    GeoData:
+      type: object
+      properties:
+        addresseerbaarObjectId:
+          type: string
+          description: Unieke BAG id
+        nummerAanduidingId:
+          type: string
+          description: Unieke BAG nummeraanduiding id
+        gpsLatitude:
+          type: number
+          description: Lengtegraad
+          format: double
+        gpsLongitude:
+          type: number
+          description: Breedtegraad
+          format: double
+        rijksdriehoekX:
+          type: number
+          description: Rijksdriehoek X-coördinaat
+          format: double
+        rijksdriehoekY:
+          type: number
+          description: Rijksdriehoek Y-coördinaat
+          format: double
+        rijksdriehoekZ:
+          type: number
+          description: Rijksdriehoek Z-coördinaat
+          format: double
+      description: Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
+    Handelsnaam:
+      type: object
+      properties:
+        naam:
+          type: string
+        volgorde:
+          type: integer
+          format: int32
+      description: Alle namen waaronder een onderneming of vestiging handelt (op volgorde van registreren)
+    Link:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+        hreflang:
+          type: string
+        media:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        deprecation:
+          type: string
+        profile:
+          type: string
+        name:
+          type: string
+    MaterieleRegistratie:
+      type: object
+      properties:
+        datumAanvang:
+          type: string
+          description: Startdatum onderneming
+        datumEinde:
+          type: string
+          description: Einddatum onderneming
+    SBIActiviteit:
+      type: object
+      properties:
+        sbiCode:
+          type: string
+        sbiOmschrijving:
+          type: string
+        indHoofdactiviteit:
+          type: string
+      description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+    Vestiging:
+      type: object
+      properties:
+        vestigingsnummer:
+          type: string
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        indNonMailing:
+          type: string
+          description: Hiermee geeft de onderneming aan geen ongevraagde reclame per post of verkoop aan de deur te willen ontvangen
+        formeleRegistratiedatum:
+          type: string
+          description: Registratiedatum onderneming in HR
+        materieleRegistratie:
+          $ref: '#/components/schemas/MaterieleRegistratie'
+        eersteHandelsnaam:
+          type: string
+          description: De naam waaronder een onderneming of vestiging handelt
+        indHoofdvestiging:
+          type: string
+          description: Hoofdvestiging (Ja/Nee)
+        indCommercieleVestiging:
+          type: string
+          description: Commerciele vestiging  (Ja/Nee)
+        voltijdWerkzamePersonen:
+          type: integer
+          description: Aantal voltijd werkzame personen
+        totaalWerkzamePersonen:
+          type: integer
+          description: Totaal aantal werkzame personen
+        deeltijdWerkzamePersonen:
+          type: integer
+          description: Aantal deeltijd werkzame personen
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Adres'
+        websites:
+          type: array
+          items:
+            type: string
+        sbiActiviteiten:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBIActiviteit'
+          description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    VestigingBasis:
+      type: object
+      properties:
+        vestigingsnummer:
+          type: string
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        eersteHandelsnaam:
+          type: string
+          description: De naam waaronder een onderneming of vestiging handelt
+        indHoofdvestiging:
+          type: string
+          description: Hoofdvestiging (Ja/Nee)
+        indAdresAfgeschermd:
+          type: string
+          description: Indicatie of het adres is afgeschermd
+        indCommercieleVestiging:
+          type: string
+          description: Commerciele vestiging  (Ja/Nee)
+        volledigAdres:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    VestigingList:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        aantalCommercieleVestigingen:
+          type: integer
+          format: int64
+        aantalNietCommercieleVestigingen:
+          type: integer
+          format: int64
+        totaalAantalVestigingen:
+          type: integer
+          format: int64
+        vestigingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/VestigingBasis'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    Resultaat:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          description: Geeft aan op welke pagina je bent. Start vanaf pagina 1
+          format: int32
+        aantal:
+          type: integer
+          description: Geeft het aantal zoek resultaten per pagina weer
+          format: int32
+        totaal:
+          type: integer
+          description: Totaal aantal zoekresultaten gevonden. De API Zoeken toont max. 1000 resultaten.
+          format: int32
+        vorige:
+          type: string
+          description: Link naar de vorige pagina indien beschikbaar
+        volgende:
+          type: string
+          description: Link naar de volgende pagina indien beschikbaar
+        resultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultaatItem'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    ResultaatItem:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        vestigingsnummer:
+          type: string
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+        handelsnaam:
+          type: string
+          description: De naam waaronder een vestiging of rechtspersoon handelt
+        straatnaam:
+          type: string
+        huisnummer:
+          type: integer
+          format: int32
+        huisnummerToevoeging:
+          type: string
+        postcode:
+          type: string
+          example: 'Postcode: bestaat uit 4 cijfers en 2 letters'
+        plaats:
+          type: string
+        type:
+          type: string
+          description: hoofdvestiging/nevenvestiging/rechtspersoon
+        actief:
+          type: string
+          description: Indicatie of inschrijving actief is
+        vervallenNaam:
+          type: string
+          description: Bevat de vervallen handelsnaam of statutaire naam waar dit zoekresultaat mee gevonden is.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: apikey
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: apikey
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
+tags:
+  - name: Basisprofiel

@@ -1,16 +1,10 @@
-using System;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
+namespace Securancy.Labs.KvkApi.Tests;
 
-namespace Securancy.Labs.KvkApi.Tests
+public abstract class BaseTests
 {
-    public abstract class BaseTests
+    protected readonly KvkApiClientConfig Config = new()
     {
-        protected KvkApiClientConfig _config = new KvkApiClientConfig()
-        {
-            Endpoint = "",
-            ApiKey = ""
-        };
-    }
+        Endpoint = "https://api.securancy.io/services/kvk",
+        ApiKey = "6b3fdfb43e59461fafcf184df13f6f35"
+    };
 }
