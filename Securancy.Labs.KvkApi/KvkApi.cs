@@ -18,54 +18,38 @@ namespace Securancy.Labs.KvkApi
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IBasisprofielKvkApiClient
+    public partial interface IZoekenKvkApiClient
     {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Voor een specifiek bedrijf basisinformatie opvragen.
+        /// Voor een bedrijf zoeken naar basisinformatie.
         /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer dat bestaat uit 8 cijfers</param>
+        /// <param name="rsin">Rechtspersonen Samenwerkingsverbanden Informatie Nummer dat bestaat uit 9 cijfers</param>
+        /// <param name="vestigingsnummer">Vestigingsnummer dat bestaat uit 12 cijfers</param>
+        /// <param name="naam">De naam waaronder een vestiging of rechtspersoon handelt</param>
+        /// <param name="postcode">Mag alleen in combinatie met huisnummer of postbusnummer gezocht worden</param>
+        /// <param name="huisnummer">Mag alleen in combinatie met postcode gezocht worden</param>
+        /// <param name="huisletter">Optioneel. Alleen in combinatie met huisnummer</param>
+        /// <param name="postbusnummer">Mag alleen in combinatie met postcode gezocht worden</param>
+        /// <param name="type">Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon</param>
+        /// <param name="inclusiefInactieveRegistraties">Inclusief inactieve registraties</param>
+        /// <param name="pagina">Paginanummer, minimaal 1 en maximaal 1000</param>
+        /// <param name="resultatenPerPagina">Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100</param>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Basisprofiel> GetBasisprofielByKvkNummerAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf eigenaar informatie opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Eigenaar> GetEigenaarAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Vestiging> GetHoofdvestigingAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf een lijst met vestigingen opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<VestigingList> GetVestigingenAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Resultaat> GetResultsAsync(string kvkNummer = null, string rsin = null, string vestigingsnummer = null, string naam = null, string straatnaam = null, string plaats = null, string postcode = null, int? huisnummer = null, string huisletter = null, int? postbusnummer = null, System.Collections.Generic.IEnumerable<Anonymous> type = null, bool? inclusiefInactieveRegistraties = null, int? pagina = null, int? resultatenPerPagina = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BasisprofielKvkApiClient : KvkApiBaseClient, IBasisprofielKvkApiClient
+    public partial class ZoekenKvkApiClient : KvkApiBaseClient, IZoekenKvkApiClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<System.Text.Json.JsonSerializerOptions> _settings;
 
-        public BasisprofielKvkApiClient(KvkApiClientConfig configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
+        public ZoekenKvkApiClient(KvkApiClientConfig configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings);
@@ -88,22 +72,81 @@ namespace Securancy.Labs.KvkApi
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Voor een specifiek bedrijf basisinformatie opvragen.
+        /// Voor een bedrijf zoeken naar basisinformatie.
         /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer dat bestaat uit 8 cijfers</param>
+        /// <param name="rsin">Rechtspersonen Samenwerkingsverbanden Informatie Nummer dat bestaat uit 9 cijfers</param>
+        /// <param name="vestigingsnummer">Vestigingsnummer dat bestaat uit 12 cijfers</param>
+        /// <param name="naam">De naam waaronder een vestiging of rechtspersoon handelt</param>
+        /// <param name="postcode">Mag alleen in combinatie met huisnummer of postbusnummer gezocht worden</param>
+        /// <param name="huisnummer">Mag alleen in combinatie met postcode gezocht worden</param>
+        /// <param name="huisletter">Optioneel. Alleen in combinatie met huisnummer</param>
+        /// <param name="postbusnummer">Mag alleen in combinatie met postcode gezocht worden</param>
+        /// <param name="type">Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon</param>
+        /// <param name="inclusiefInactieveRegistraties">Inclusief inactieve registraties</param>
+        /// <param name="pagina">Paginanummer, minimaal 1 en maximaal 1000</param>
+        /// <param name="resultatenPerPagina">Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100</param>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Basisprofiel> GetBasisprofielByKvkNummerAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<Resultaat> GetResultsAsync(string kvkNummer = null, string rsin = null, string vestigingsnummer = null, string naam = null, string straatnaam = null, string plaats = null, string postcode = null, int? huisnummer = null, string huisletter = null, int? postbusnummer = null, System.Collections.Generic.IEnumerable<Anonymous> type = null, bool? inclusiefInactieveRegistraties = null, int? pagina = null, int? resultatenPerPagina = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            if (kvkNummer == null)
-                throw new System.ArgumentNullException("kvkNummer");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}?");
-            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
-            if (geoData != null)
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v2/zoeken?");
+            if (kvkNummer != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("kvkNummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (rsin != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("rsin") + "=").Append(System.Uri.EscapeDataString(ConvertToString(rsin, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (vestigingsnummer != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("vestigingsnummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(vestigingsnummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (naam != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("naam") + "=").Append(System.Uri.EscapeDataString(ConvertToString(naam, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (straatnaam != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("straatnaam") + "=").Append(System.Uri.EscapeDataString(ConvertToString(straatnaam, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (plaats != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("plaats") + "=").Append(System.Uri.EscapeDataString(ConvertToString(plaats, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (postcode != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("postcode") + "=").Append(System.Uri.EscapeDataString(ConvertToString(postcode, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (huisnummer != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("huisnummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(huisnummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (huisletter != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("huisletter") + "=").Append(System.Uri.EscapeDataString(ConvertToString(huisletter, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (postbusnummer != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("postbusnummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(postbusnummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (type != null)
+            {
+                foreach (var item_ in type) { urlBuilder_.Append(System.Uri.EscapeDataString("type") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            if (inclusiefInactieveRegistraties != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("inclusiefInactieveRegistraties") + "=").Append(System.Uri.EscapeDataString(ConvertToString(inclusiefInactieveRegistraties, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (pagina != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("pagina") + "=").Append(System.Uri.EscapeDataString(ConvertToString(pagina, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (resultatenPerPagina != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("resultatenPerPagina") + "=").Append(System.Uri.EscapeDataString(ConvertToString(resultatenPerPagina, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -114,7 +157,7 @@ namespace Securancy.Labs.KvkApi
                 using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -139,7 +182,7 @@ namespace Securancy.Labs.KvkApi
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Basisprofiel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Resultaat>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -149,317 +192,62 @@ namespace Securancy.Labs.KvkApi
                         else
                         if (status_ == 400)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Basisprofiel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Basisprofiel>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<Error>("Een opgegeven parameter is niet valide", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 401)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<Error>("Geen of onjuiste apikey aangeleverd", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<Error>("Niet geautoriseerd voor deze operatie", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<Error>("Er zijn geen resultaten gevonden aan de hand van de opgegeven parameter(s)", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 406)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<Error>("Opgegeven Accept header wordt niet ondersteund", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 500)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Basisprofiel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Basisprofiel>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf eigenaar informatie opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Eigenaar> GetEigenaarAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            if (kvkNummer == null)
-                throw new System.ArgumentNullException("kvkNummer");
-
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/eigenaar?");
-            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
-            if (geoData != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Eigenaar>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 400)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Eigenaar>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Eigenaar>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ == 500)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Eigenaar>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Eigenaar>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Vestiging> GetHoofdvestigingAsync(string kvkNummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            if (kvkNummer == null)
-                throw new System.ArgumentNullException("kvkNummer");
-
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/hoofdvestiging?");
-            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
-            if (geoData != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 400)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Vestiging>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ == 500)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Vestiging>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Voor een specifiek bedrijf een lijst met vestigingen opvragen.
-        /// </summary>
-        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <returns>default response</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<VestigingList> GetVestigingenAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            if (kvkNummer == null)
-                throw new System.ArgumentNullException("kvkNummer");
-
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/vestigingen");
-            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<VestigingList>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 400)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<VestigingList>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<VestigingList>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ == 500)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<VestigingList>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<VestigingList>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<Error>("Er is een interne fout opgetreden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -582,36 +370,54 @@ namespace Securancy.Labs.KvkApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IZoekenKvkApiClient
+    public partial interface IBasisprofielKvkApiClient
     {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Voor een bedrijf zoeken naar basisinformatie.
+        /// Voor een specifiek bedrijf een lijst met vestigingen opvragen.
         /// </summary>
         /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <param name="rsin">Rechtspersonen Samenwerkingsverbanden Informatie Nummer</param>
-        /// <param name="vestigingsnummer">Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers</param>
-        /// <param name="handelsnaam">De naam waaronder een vestiging of rechtspersoon handelt</param>
-        /// <param name="postcode">Mag alleen in combinatie met Huisnummer gezocht worden</param>
-        /// <param name="huisnummer">Mag alleen in combinatie met Postcode gezocht worden</param>
-        /// <param name="type">Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon</param>
-        /// <param name="inclusiefInactieveRegistraties">Inclusief inactieve registraties: true, false</param>
-        /// <param name="pagina">Paginanummer, minimaal 1 en maximaal 1000</param>
-        /// <param name="aantal">Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100</param>
         /// <returns>default response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Resultaat> GetResultsAsync(string kvkNummer = null, string rsin = null, string vestigingsnummer = null, string handelsnaam = null, string straatnaam = null, string plaats = null, string postcode = null, string huisnummer = null, string type = null, bool? inclusiefInactieveRegistraties = null, double? pagina = null, double? aantal = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<VestigingList> GetVestigingenAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Vestiging> GetHoofdvestigingAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf eigenaar informatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Eigenaar> GetEigenaarAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf basisinformatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Basisprofiel> GetBasisprofielByKvkNummerAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ZoekenKvkApiClient : KvkApiBaseClient, IZoekenKvkApiClient
+    public partial class BasisprofielKvkApiClient : KvkApiBaseClient, IBasisprofielKvkApiClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<System.Text.Json.JsonSerializerOptions> _settings;
 
-        public ZoekenKvkApiClient(KvkApiClientConfig configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
+        public BasisprofielKvkApiClient(KvkApiClientConfig configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings);
@@ -634,71 +440,97 @@ namespace Securancy.Labs.KvkApi
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Voor een bedrijf zoeken naar basisinformatie.
+        /// Voor een specifiek bedrijf een lijst met vestigingen opvragen.
         /// </summary>
         /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
-        /// <param name="rsin">Rechtspersonen Samenwerkingsverbanden Informatie Nummer</param>
-        /// <param name="vestigingsnummer">Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers</param>
-        /// <param name="handelsnaam">De naam waaronder een vestiging of rechtspersoon handelt</param>
-        /// <param name="postcode">Mag alleen in combinatie met Huisnummer gezocht worden</param>
-        /// <param name="huisnummer">Mag alleen in combinatie met Postcode gezocht worden</param>
-        /// <param name="type">Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon</param>
-        /// <param name="inclusiefInactieveRegistraties">Inclusief inactieve registraties: true, false</param>
-        /// <param name="pagina">Paginanummer, minimaal 1 en maximaal 1000</param>
-        /// <param name="aantal">Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100</param>
         /// <returns>default response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Resultaat> GetResultsAsync(string kvkNummer = null, string rsin = null, string vestigingsnummer = null, string handelsnaam = null, string straatnaam = null, string plaats = null, string postcode = null, string huisnummer = null, string type = null, bool? inclusiefInactieveRegistraties = null, double? pagina = null, double? aantal = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<VestigingList> GetVestigingenAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
+            if (kvkNummer == null)
+                throw new System.ArgumentNullException("kvkNummer");
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/zoeken?");
-            if (kvkNummer != null)
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/vestigingen");
+            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("kvkNummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<VestigingList>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
             }
-            if (rsin != null)
+            finally
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("rsin") + "=").Append(System.Uri.EscapeDataString(ConvertToString(rsin, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                if (disposeClient_)
+                    client_.Dispose();
             }
-            if (vestigingsnummer != null)
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Vestiging> GetHoofdvestigingAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (kvkNummer == null)
+                throw new System.ArgumentNullException("kvkNummer");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/hoofdvestiging?");
+            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
+            if (geoData != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("vestigingsnummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(vestigingsnummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (handelsnaam != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("handelsnaam") + "=").Append(System.Uri.EscapeDataString(ConvertToString(handelsnaam, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (straatnaam != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("straatnaam") + "=").Append(System.Uri.EscapeDataString(ConvertToString(straatnaam, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (plaats != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("plaats") + "=").Append(System.Uri.EscapeDataString(ConvertToString(plaats, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (postcode != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("postcode") + "=").Append(System.Uri.EscapeDataString(ConvertToString(postcode, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (huisnummer != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("huisnummer") + "=").Append(System.Uri.EscapeDataString(ConvertToString(huisnummer, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (type != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("type") + "=").Append(System.Uri.EscapeDataString(ConvertToString(type, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (inclusiefInactieveRegistraties != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("InclusiefInactieveRegistraties") + "=").Append(System.Uri.EscapeDataString(ConvertToString(inclusiefInactieveRegistraties, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (pagina != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("pagina") + "=").Append(System.Uri.EscapeDataString(ConvertToString(pagina, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (aantal != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("aantal") + "=").Append(System.Uri.EscapeDataString(ConvertToString(aantal, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -734,7 +566,7 @@ namespace Securancy.Labs.KvkApi
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Resultaat>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -742,24 +574,164 @@ namespace Securancy.Labs.KvkApi
                             return objectResponse_.Object;
                         }
                         else
-                        if (status_ == 400)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Resultaat>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf eigenaar informatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Eigenaar> GetEigenaarAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (kvkNummer == null)
+                throw new System.ArgumentNullException("kvkNummer");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}/eigenaar?");
+            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
+            if (geoData != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Eigenaar>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Resultaat>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            return objectResponse_.Object;
                         }
                         else
-                        if (status_ == 500)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Resultaat>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf basisinformatie opvragen.
+        /// </summary>
+        /// <param name="kvkNummer">Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers</param>
+        /// <returns>default response</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Basisprofiel> GetBasisprofielByKvkNummerAsync(string kvkNummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (kvkNummer == null)
+                throw new System.ArgumentNullException("kvkNummer");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/basisprofielen/{kvkNummer}?");
+            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
+            if (geoData != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("geoData") + "=").Append(System.Uri.EscapeDataString(ConvertToString(geoData, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Basisprofiel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Resultaat>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -893,7 +865,7 @@ namespace Securancy.Labs.KvkApi
         /// <param name="geoData">GeoData: (true/false) geef aan of BAG data opgehaald moet worden</param>
         /// <returns>default response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Vestiging> GetVestigingByVestigingsnummerAsync(string vestigingsnummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Vestiging> GetVestigingByVestigingsnummerAsync(string vestigingsnummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     }
 
@@ -932,7 +904,7 @@ namespace Securancy.Labs.KvkApi
         /// <param name="geoData">GeoData: (true/false) geef aan of BAG data opgehaald moet worden</param>
         /// <returns>default response</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Vestiging> GetVestigingByVestigingsnummerAsync(string vestigingsnummer, bool? geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<Vestiging> GetVestigingByVestigingsnummerAsync(string vestigingsnummer, string geoData = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (vestigingsnummer == null)
                 throw new System.ArgumentNullException("vestigingsnummer");
@@ -984,26 +956,6 @@ namespace Securancy.Labs.KvkApi
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 400)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Vestiging>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ == 500)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Vestiging>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<Vestiging>("default response", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -1125,8 +1077,578 @@ namespace Securancy.Labs.KvkApi
         }
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial interface INaamgevingKvkApiClient
+    {
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf naamgeving informatie opvragen op basis van een kvkNummer
+        /// </summary>
+        /// <param name="kvkNummer">__Nederlands Kamer van Koophandel nummer__: bestaat uit 8 cijfers</param>
+        /// <returns>Het verzoek levert een resultaat op. Als geen resultaten worden gevonden die aan de path parameter voldoen, wordt een 404 NotFound teruggegeven.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Naamgeving> NaamgevingBijKvkNummerAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class NaamgevingKvkApiClient : KvkApiBaseClient, INaamgevingKvkApiClient
+    {
+        private System.Net.Http.HttpClient _httpClient;
+        private System.Lazy<System.Text.Json.JsonSerializerOptions> _settings;
+
+        public NaamgevingKvkApiClient(KvkApiClientConfig configuration, System.Net.Http.HttpClient httpClient) : base(configuration)
+        {
+            _httpClient = httpClient;
+            _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings);
+        }
+
+        private System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
+        {
+            var settings = new System.Text.Json.JsonSerializerOptions();
+            UpdateJsonSerializerSettings(settings);
+            return settings;
+        }
+
+        protected System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _settings.Value; } }
+
+        partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
+
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
+        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Voor een specifiek bedrijf naamgeving informatie opvragen op basis van een kvkNummer
+        /// </summary>
+        /// <param name="kvkNummer">__Nederlands Kamer van Koophandel nummer__: bestaat uit 8 cijfers</param>
+        /// <returns>Het verzoek levert een resultaat op. Als geen resultaten worden gevonden die aan de path parameter voldoen, wordt een 404 NotFound teruggegeven.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Naamgeving> NaamgevingBijKvkNummerAsync(string kvkNummer, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (kvkNummer == null)
+                throw new System.ArgumentNullException("kvkNummer");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/v1/naamgevingen/kvknummer/{kvkNummer}");
+            urlBuilder_.Replace("{kvkNummer}", System.Uri.EscapeDataString(ConvertToString(kvkNummer, System.Globalization.CultureInfo.InvariantCulture)));
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/hal+json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Naamgeving>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 401)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 406)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        protected struct ObjectResponseResult<T>
+        {
+            public ObjectResponseResult(T responseObject, string responseText)
+            {
+                this.Object = responseObject;
+                this.Text = responseText;
+            }
+
+            public T Object { get; }
+
+            public string Text { get; }
+        }
+
+        public bool ReadResponseAsString { get; set; }
+
+        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
+        {
+            if (response == null || response.Content == null)
+            {
+                return new ObjectResponseResult<T>(default(T), string.Empty);
+            }
+
+            if (ReadResponseAsString)
+            {
+                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
+                    return new ObjectResponseResult<T>(typedBody, responseText);
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                    {
+                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
+                        return new ObjectResponseResult<T>(typedBody, string.Empty);
+                    }
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
+                }
+            }
+        }
+
+        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            if (value is System.Enum)
+            {
+                var name = System.Enum.GetName(value.GetType(), value);
+                if (name != null)
+                {
+                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
+                    if (field != null)
+                    {
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                            as System.Runtime.Serialization.EnumMemberAttribute;
+                        if (attribute != null)
+                        {
+                            return attribute.Value != null ? attribute.Value : name;
+                        }
+                    }
+
+                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
+                    return converted == null ? string.Empty : converted;
+                }
+            }
+            else if (value is bool) 
+            {
+                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
+            }
+            else if (value is byte[])
+            {
+                return System.Convert.ToBase64String((byte[]) value);
+            }
+            else if (value.GetType().IsArray)
+            {
+                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
+                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
+            }
+
+            var result = System.Convert.ToString(value, cultureInfo);
+            return result == null ? "" : result;
+        }
+    }
+
+    /// <summary>
+    /// Binnenlands of buitenlands adres
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Adres
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("binnenlandsAdres")]
+        public BinnenlandsAdres BinnenlandsAdres { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("buitenlandsAdres")]
+        public BuitenlandsAdres BuitenlandsAdres { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Bezoekadres of postadres
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AdresType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"bezoekadres")]
+        Bezoekadres = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"postadres")]
+        Postadres = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class BinnenlandsAdres
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AdresType? Type { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("straatnaam")]
+        public string Straatnaam { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("huisnummer")]
+        public int? Huisnummer { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("huisletter")]
+        public string Huisletter { get; set; }
+
+        /// <summary>
+        /// Postbusnummer wordt alleen getoond indien het een postadres betreft
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("postbusnummer")]
+        public int? Postbusnummer { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("postcode")]
+        public string Postcode { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("plaats")]
+        public string Plaats { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class BuitenlandsAdres
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AdresType? Type { get; set; }
+
+        /// <summary>
+        /// Het straat/huisnummer is een combinatie van de straat en huisnummer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("straatHuisnummer")]
+        public string StraatHuisnummer { get; set; }
+
+        /// <summary>
+        /// De postcode/woonplaats is de combinatie van een eventuele postcode en woonplaats
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("postcodeWoonplaats")]
+        public string PostcodeWoonplaats { get; set; }
+
+        /// <summary>
+        /// De naam van het land waar het adres bevindt
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("land")]
+        public string Land { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Links : System.Collections.Generic.Dictionary<string, Link>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Resultaat
+    {
+        /// <summary>
+        /// Geeft aan op welke pagina je bent. Start vanaf pagina 1
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("pagina")]
+        public int? Pagina { get; set; }
+
+        /// <summary>
+        /// Geeft het aantal zoek resultaten per pagina weer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("resultatenPerPagina")]
+        public int? ResultatenPerPagina { get; set; }
+
+        /// <summary>
+        /// Totaal aantal zoekresultaten gevonden. De API Zoeken toont max. 1000 resultaten.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("totaal")]
+        public int? Totaal { get; set; }
+
+        /// <summary>
+        /// Link naar de vorige pagina indien beschikbaar
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vorige")]
+        public string Vorige { get; set; }
+
+        /// <summary>
+        /// Link naar de volgende pagina indien beschikbaar
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("volgende")]
+        public string Volgende { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("resultaten")]
+        public System.Collections.Generic.ICollection<ResultaatItem> Resultaten { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public Links _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ResultaatItem
+    {
+        /// <summary>
+        /// Nederlands Kamer van Koophandel nummer dat bestaat uit 8 cijfers
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("kvkNummer")]
+        public string KvkNummer { get; set; }
+
+        /// <summary>
+        /// Rechtspersonen Samenwerkingsverbanden Informatie Nummer dat bestaat uit 9 cijfers
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("rsin")]
+        public string Rsin { get; set; }
+
+        /// <summary>
+        /// Vestigingsnummer dat bestaat uit 12 cijfers
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsnummer")]
+        public string Vestigingsnummer { get; set; }
+
+        /// <summary>
+        /// De naam waaronder een vestiging of rechtspersoon handelt
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("naam")]
+        public string Naam { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("adres")]
+        public Adres Adres { get; set; }
+
+        /// <summary>
+        /// hoofdvestiging/nevenvestiging/rechtspersoon
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Indicatie of inschrijving actief is
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("actief")]
+        public string Actief { get; set; }
+
+        /// <summary>
+        /// Bevat de vervallen naam waaronder een vestiging of rechtspersoon heeft gehandeld
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vervallenNaam")]
+        public string VervallenNaam { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public Links _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Link
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("href")]
+        public string Href { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Error
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("fout")]
+        public System.Collections.Generic.ICollection<Fout> Fout { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Fout
+    {
+        /// <summary>
+        /// Foutcode
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("code")]
+        public string Code { get; set; }
+
+        /// <summary>
+        /// Omschrijving van de foutmelding
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("omschrijving")]
+        public string Omschrijving { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Adres1
     {
         /// <summary>
         /// Correspondentieadres en/of bezoekadres
@@ -1156,9 +1678,6 @@ namespace Securancy.Labs.KvkApi
 
         [System.Text.Json.Serialization.JsonPropertyName("huisletter")]
         public string Huisletter { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("aanduidingBijHuisnummer")]
-        public string AanduidingBijHuisnummer { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("toevoegingAdres")]
         public string ToevoegingAdres { get; set; }
@@ -1296,6 +1815,9 @@ namespace Securancy.Labs.KvkApi
         [System.Text.Json.Serialization.JsonPropertyName("adressen")]
         public System.Collections.Generic.ICollection<Adres> Adressen { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("websites")]
+        public System.Collections.Generic.ICollection<string> Websites { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("links")]
         public System.Collections.Generic.ICollection<Link> Links { get; set; }
 
@@ -1398,7 +1920,7 @@ namespace Securancy.Labs.KvkApi
     }
 
     /// <summary>
-    /// Alle namen waaronder een onderneming of vestiging handelt (op volgorde van registreren)
+    /// Alle namen waaronder een vestiging handelt (op volgorde van registreren)
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Handelsnaam
@@ -1422,35 +1944,19 @@ namespace Securancy.Labs.KvkApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Link
+    public partial class Link1
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("rel")]
-        public string Rel { get; set; }
-
         [System.Text.Json.Serialization.JsonPropertyName("href")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Href { get; set; }
 
-        [System.Text.Json.Serialization.JsonPropertyName("hreflang")]
-        public string Hreflang { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("media")]
-        public string Media { get; set; }
+        /// <summary>
+        /// Omschrijving van de link
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("title")]
         public string Title { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string Type { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("deprecation")]
-        public string Deprecation { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("profile")]
-        public string Profile { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string Name { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1601,6 +2107,13 @@ namespace Securancy.Labs.KvkApi
         [System.Text.Json.Serialization.JsonPropertyName("deeltijdWerkzamePersonen")]
         public int? DeeltijdWerkzamePersonen { get; set; }
 
+        /// <summary>
+        /// Alle namen waaronder een vestiging handelt (op volgorde van registreren)
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("handelsnamen")]
+        public System.Collections.Generic.ICollection<Handelsnaam> Handelsnamen { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("adressen")]
         public System.Collections.Generic.ICollection<Adres> Adressen { get; set; }
 
@@ -1726,49 +2239,91 @@ namespace Securancy.Labs.KvkApi
 
     }
 
+    /// <summary>
+    /// Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Resultaat
+    public partial class GeoData1
     {
         /// <summary>
-        /// Geeft aan op welke pagina je bent. Start vanaf pagina 1
+        /// Unieke BAG id
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("pagina")]
-        public int? Pagina { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("addresseerbaarObjectId")]
+        public string AddresseerbaarObjectId { get; set; }
 
         /// <summary>
-        /// Geeft het aantal zoek resultaten per pagina weer
+        /// Unieke BAG nummeraanduiding id
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("aantal")]
-        public int? Aantal { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("nummerAanduidingId")]
+        public string NummerAanduidingId { get; set; }
 
         /// <summary>
-        /// Totaal aantal zoekresultaten gevonden. De API Zoeken toont max. 1000 resultaten.
+        /// Lengtegraad
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("totaal")]
-        public int? Totaal { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("gpsLatitude")]
+        public double? GpsLatitude { get; set; }
 
         /// <summary>
-        /// Link naar de vorige pagina indien beschikbaar
+        /// Breedtegraad
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("vorige")]
-        public string Vorige { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("gpsLongitude")]
+        public double? GpsLongitude { get; set; }
 
         /// <summary>
-        /// Link naar de volgende pagina indien beschikbaar
+        /// Rijksdriehoek X-coördinaat
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("volgende")]
-        public string Volgende { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekX")]
+        public double? RijksdriehoekX { get; set; }
 
-        [System.Text.Json.Serialization.JsonPropertyName("resultaten")]
-        public System.Collections.Generic.ICollection<ResultaatItem> Resultaten { get; set; }
+        /// <summary>
+        /// Rijksdriehoek Y-coördinaat
+        /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("links")]
-        public System.Collections.Generic.ICollection<Link> Links { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekY")]
+        public double? RijksdriehoekY { get; set; }
+
+        /// <summary>
+        /// Rijksdriehoek Z-coördinaat
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekZ")]
+        public double? RijksdriehoekZ { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Een handelsnaam is een naam waaronder een vestiging van een onderneming handelt.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Handelsnaam1
+    {
+        /// <summary>
+        /// De handelsnaam van de vestiging
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("naam")]
+        public string Naam { get; set; }
+
+        /// <summary>
+        /// Het volgorde nummer van een handelsnaam
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("volgorde")]
+        public int? Volgorde { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1782,74 +2337,338 @@ namespace Securancy.Labs.KvkApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ResultaatItem
+    public partial class MaterieleRegistratie1
     {
         /// <summary>
-        /// Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers
+        /// Startdatum onderneming
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("kvkNummer")]
-        public string KvkNummer { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("datumAanvang")]
+        public string DatumAanvang { get; set; }
 
         /// <summary>
-        /// Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        /// Einddatum onderneming
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("rsin")]
-        public string Rsin { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("datumEinde")]
+        public string DatumEinde { get; set; }
 
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SBIActiviteit1
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("sbiCode")]
+        public string SbiCode { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("sbiOmschrijving")]
+        public string SbiOmschrijving { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("indHoofdactiviteit")]
+        public string IndHoofdactiviteit { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Alle namen waaronder een vestiging handelt (op volgorde van registratie)
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Vestiging1
+    {
         /// <summary>
-        /// Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers
+        /// Uniek nummer dat bestaat uit 12 cijfers
         /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("vestigingsnummer")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[0-9]{12}$")]
         public string Vestigingsnummer { get; set; }
 
         /// <summary>
-        /// De naam waaronder een vestiging of rechtspersoon handelt
+        /// De eerste handelsnaam van de Vestiging
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("handelsnaam")]
-        public string Handelsnaam { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("straatnaam")]
-        public string Straatnaam { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("huisnummer")]
-        public int? Huisnummer { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("huisnummerToevoeging")]
-        public string HuisnummerToevoeging { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("postcode")]
-        public string Postcode { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("plaats")]
-        public string Plaats { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("eersteHandelsnaam")]
+        public string EersteHandelsnaam { get; set; }
 
         /// <summary>
-        /// hoofdvestiging/nevenvestiging/rechtspersoon
+        /// Alle namen waaronder een onderneming of vestiging handelt
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string Type { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("handelsnamen")]
+        public System.Collections.Generic.ICollection<Handelsnaam> Handelsnamen { get; set; }
 
         /// <summary>
-        /// Indicatie of inschrijving actief is
+        /// URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("actief")]
-        public string Actief { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public _links _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Naamgeving
+    {
+        /// <summary>
+        /// Nederlands Kamer van Koophandel nummer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("kvkNummer")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string KvkNummer { get; set; }
 
         /// <summary>
-        /// Bevat de vervallen handelsnaam of statutaire naam waar dit zoekresultaat mee gevonden is.
+        /// RSIN (Rechtspersonen en Samenwerkingsverbanden Informatienummer)
+        /// <br/>
+        /// <br/>Het RSIN kan voorloopnullen bevatten
+        /// <br/>
         /// </summary>
 
-        [System.Text.Json.Serialization.JsonPropertyName("vervallenNaam")]
-        public string VervallenNaam { get; set; }
+        [System.Text.Json.Serialization.JsonPropertyName("rsin")]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[0-9]{9}$")]
+        public string Rsin { get; set; }
 
-        [System.Text.Json.Serialization.JsonPropertyName("links")]
-        public System.Collections.Generic.ICollection<Link> Links { get; set; }
+        /// <summary>
+        /// De naam van de rechtspersoon die opgenomen is in de oprichtingsakte
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("statutaireNaam")]
+        public string StatutaireNaam { get; set; }
+
+        /// <summary>
+        /// Naam of eerste handelsnaam van de inschrijving
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("naam")]
+        public string Naam { get; set; }
+
+        /// <summary>
+        /// Een andere naam waaronder de vereniging, stichtingen en vereniging van eigenaars ook bekend is
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ookGenoemd")]
+        public string OokGenoemd { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("startdatum")]
+        public string Startdatum { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("einddatum")]
+        public string Einddatum { get; set; }
+
+        /// <summary>
+        /// Lijst van vestigingen
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingen")]
+        public System.Collections.Generic.ICollection<Vestiging> Vestigingen { get; set; }
+
+        /// <summary>
+        /// URI naar API Basisprofiel voor het huidige kvknummer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public _links2 _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// De naam waaronder een niet commerciele vestiging bekend is
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class NietCommercieleVestiging
+    {
+        /// <summary>
+        /// Uniek nummer dat bestaat uit 12 cijfers
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsnummer")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[0-9]{12}$")]
+        public string Vestigingsnummer { get; set; }
+
+        /// <summary>
+        /// De naam van de Vestiging
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("naam")]
+        public string Naam { get; set; }
+
+        /// <summary>
+        /// Een andere naam waaronder de vereniging, stichtingen en vereniging van eigenaars ook bekend is
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ookGenoemd")]
+        public string OokGenoemd { get; set; }
+
+        /// <summary>
+        /// URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public _links3 _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Error1
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("fout")]
+        public System.Collections.Generic.ICollection<Fout> Fout { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Fout1
+    {
+        /// <summary>
+        /// Foutcode
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("code")]
+        public string Code { get; set; }
+
+        /// <summary>
+        /// Omschrijving van de foutmelding
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("omschrijving")]
+        public string Omschrijving { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum Anonymous
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"hoofdvestiging")]
+        Hoofdvestiging = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"nevenvestiging")]
+        Nevenvestiging = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"rechtspersoon")]
+        Rechtspersoon = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class _links
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsprofiel")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public Link Vestigingsprofiel { get; set; } = new Link();
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class _links2
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("self")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public Link Self { get; set; } = new Link();
+
+        [System.Text.Json.Serialization.JsonPropertyName("basisprofiel")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public Link Basisprofiel { get; set; } = new Link();
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class _links3
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsprofiel")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public Link Vestigingsprofiel { get; set; } = new Link();
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
