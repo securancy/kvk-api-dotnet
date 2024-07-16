@@ -18,6 +18,6 @@ resources:
 extends:
   template: dotnet-nuget.yml@templates
   parameters:
-    dotNetVersion: '6.0.x'
+    dotNetVersion: '8.0.x'
     feed: 'heartwork'
     environment: 'Production'
