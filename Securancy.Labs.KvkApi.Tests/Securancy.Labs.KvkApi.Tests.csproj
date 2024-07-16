@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0"/>
     <PackageReference Include="xunit" Version="2.4.0"/>
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0"/>
@@ -18,6 +20,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Securancy.Labs.KvkApi\Securancy.Labs.KvkApi.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

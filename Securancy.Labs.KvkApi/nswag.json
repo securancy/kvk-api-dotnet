@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "Docs/Kamer van Koophandel.openapi.yaml",
+      "url": "Docs/Securancy APIM/Kamer van Koophandel.openapi.yaml",
       "output": null,
       "newLineBehavior": "Auto"
     }

@@ -1,0 +1,1337 @@
+openapi: 3.0.1
+info:
+  title: Kamer van Koophandel
+  description: Documentatie voor API Zoeken.
+  version: v3
+servers:
+  - url: https://api.securancy.io/services/kvk/v3
+paths:
+  /v2/zoeken:
+    get:
+      tags:
+        - Zoeken
+      summary: Voor een bedrijf zoeken naar basisinformatie.
+      description: Er wordt max. 1000 resultaten getoond.
+      operationId: get-results
+      parameters:
+        - name: kvkNummer
+          in: query
+          description: Nederlands Kamer van Koophandel nummer dat bestaat uit 8 cijfers
+          schema:
+            pattern: '^[0-9]{8}$'
+            type: string
+          example: 59581883
+        - name: rsin
+          in: query
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer dat bestaat uit 9 cijfers
+          schema:
+            pattern: '^[0-9]{9}$'
+            type: string
+          example: 823807071
+        - name: vestigingsnummer
+          in: query
+          description: Vestigingsnummer dat bestaat uit 12 cijfers
+          schema:
+            pattern: '^[0-9]{12}$'
+            type: string
+          example: 15063097
+        - name: naam
+          in: query
+          description: De naam waaronder een vestiging of rechtspersoon handelt
+          schema:
+            type: string
+          example: Kamer van Koophandel
+        - name: straatnaam
+          in: query
+          schema:
+            type: string
+          example: St.-Jacobsstraat
+        - name: plaats
+          in: query
+          schema:
+            type: string
+          example: Utrecht
+        - name: postcode
+          in: query
+          description: Mag alleen in combinatie met huisnummer of postbusnummer gezocht worden
+          schema:
+            pattern: '^[0-9]{4}[a-z,A-Z]{2}$'
+            type: string
+          example: 3511BT
+        - name: huisnummer
+          in: query
+          description: Mag alleen in combinatie met postcode gezocht worden
+          schema:
+            pattern: '^[0-9]{1,5}$'
+            type: integer
+          example: 300
+        - name: huisletter
+          in: query
+          description: Optioneel. Alleen in combinatie met huisnummer
+          schema:
+            pattern: '^[a-z,A-Z]{1}$'
+            type: string
+          example: D
+        - name: postbusnummer
+          in: query
+          description: Mag alleen in combinatie met postcode gezocht worden
+          schema:
+            pattern: '^[0-9]{1,5}$'
+            type: integer
+          example: 9292
+        - name: type
+          in: query
+          description: 'Filter op type: hoofdvestiging, nevenvestiging en/of rechtspersoon'
+          schema:
+            type: array
+            items:
+              enum:
+                - hoofdvestiging
+                - nevenvestiging
+                - rechtspersoon
+              type: string
+          example: hoofdvestiging
+        - name: inclusiefInactieveRegistraties
+          in: query
+          description: Inclusief inactieve registraties
+          schema:
+            type: boolean
+          example: 'True'
+        - name: pagina
+          in: query
+          description: 'Paginanummer, minimaal 1 en maximaal 1000'
+          schema:
+            maximum: 1000.0
+            type: integer
+            default: 1
+        - name: resultatenPerPagina
+          in: query
+          description: 'Kies het aantal resultaten per pagina, minimaal 1 en maximaal 100'
+          schema:
+            maximum: 100.0
+            minimum: 1.0
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: OK
+          headers:
+            api-version:
+              schema:
+                type: string
+            warning:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resultaat'
+              example:
+                pagina: 0
+                resultatenPerPagina: 0
+                totaal: 0
+                vorige: string
+                volgende: string
+                resultaten:
+                  - kvkNummer: string
+                    rsin: string
+                    vestigingsnummer: string
+                    naam: string
+                    adres:
+                      binnenlandsAdres:
+                        type: bezoekadres
+                        straatnaam: string
+                        huisnummer: 0
+                        huisletter: string
+                        postbusnummer: 0
+                        postcode: string
+                        plaats: string
+                      buitenlandsAdres:
+                        type: bezoekadres
+                        straatHuisnummer: 53 Rue de Tilsitt
+                        postcodeWoonplaats: X-13501 Parijs
+                        land: Frankrijk
+                    type: string
+                    actief: string
+                    vervallenNaam: string
+                    _links: { }
+                _links: { }
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Resultaat'
+              example:
+                pagina: 0
+                resultatenPerPagina: 0
+                totaal: 0
+                vorige: string
+                volgende: string
+                resultaten:
+                  - kvkNummer: string
+                    rsin: string
+                    vestigingsnummer: string
+                    naam: string
+                    adres:
+                      binnenlandsAdres:
+                        type: bezoekadres
+                        straatnaam: string
+                        huisnummer: 0
+                        huisletter: string
+                        postbusnummer: 0
+                        postcode: string
+                        plaats: string
+                      buitenlandsAdres:
+                        type: bezoekadres
+                        straatHuisnummer: 53 Rue de Tilsitt
+                        postcodeWoonplaats: X-13501 Parijs
+                        land: Frankrijk
+                    type: string
+                    actief: string
+                    vervallenNaam: string
+                    _links: { }
+                _links: { }
+        '400':
+          description: Een opgegeven parameter is niet valide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+        '401':
+          description: Geen of onjuiste apikey aangeleverd
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+        '403':
+          description: Niet geautoriseerd voor deze operatie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+        '404':
+          description: Er zijn geen resultaten gevonden aan de hand van de opgegeven parameter(s)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+        '406':
+          description: Opgegeven Accept header wordt niet ondersteund
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+        '500':
+          description: Er is een interne fout opgetreden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                fout:
+                  - code: string
+                    omschrijving: string
+  '/v1/basisprofielen/{kvkNummer}/vestigingen':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf een lijst met vestigingen opvragen.
+      description: Voor een specifiek bedrijf een lijst met vestigingen opvragen.
+      operationId: get-vestigingen
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VestigingList'
+              example:
+                kvkNummer: string
+                aantalCommercieleVestigingen: 0
+                aantalNietCommercieleVestigingen: 0
+                totaalAantalVestigingen: 0
+                vestigingen:
+                  - vestigingsnummer: string
+                    kvkNummer: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indAdresAfgeschermd: string
+                    indCommercieleVestiging: string
+                    volledigAdres: string
+                    links:
+                      - href: string
+                        title: string
+                links:
+                  - href: string
+                    title: string
+  '/v1/basisprofielen/{kvkNummer}/hoofdvestiging':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+      description: Voor een specifiek bedrijf hoofdvestigingsinformatie opvragen.
+      operationId: get-hoofdvestiging
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                adressen:
+                  - binnenlandsAdres:
+                      type: bezoekadres
+                      straatnaam: string
+                      huisnummer: 0
+                      huisletter: string
+                      postbusnummer: 0
+                      postcode: string
+                      plaats: string
+                    buitenlandsAdres:
+                      type: bezoekadres
+                      straatHuisnummer: 53 Rue de Tilsitt
+                      postcodeWoonplaats: X-13501 Parijs
+                      land: Frankrijk
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - href: string
+                    title: string
+  '/v1/basisprofielen/{kvkNummer}/eigenaar':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf eigenaar informatie opvragen.
+      description: Voor een specifiek bedrijf eigenaar informatie opvragen.
+      operationId: get-eigenaar
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Eigenaar'
+              example:
+                rsin: string
+                rechtsvorm: string
+                uitgebreideRechtsvorm: string
+                adressen:
+                  - binnenlandsAdres:
+                      type: bezoekadres
+                      straatnaam: string
+                      huisnummer: 0
+                      huisletter: string
+                      postbusnummer: 0
+                      postcode: string
+                      plaats: string
+                    buitenlandsAdres:
+                      type: bezoekadres
+                      straatHuisnummer: 53 Rue de Tilsitt
+                      postcodeWoonplaats: X-13501 Parijs
+                      land: Frankrijk
+                websites:
+                  - string
+                links:
+                  - href: string
+                    title: string
+  '/v1/basisprofielen/{kvkNummer}':
+    get:
+      tags:
+        - Basisprofiel
+      summary: Voor een specifiek bedrijf basisinformatie opvragen.
+      description: Voor een specifiek bedrijf basisinformatie opvragen.
+      operationId: get-basisprofiel-by-kvk-nummer
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            type: string
+        - name: geoData
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Basisprofiel'
+              example:
+                kvkNummer: string
+                indNonMailing: string
+                naam: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                totaalWerkzamePersonen: 0
+                statutaireNaam: string
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - href: string
+                    title: string
+                _embedded:
+                  hoofdvestiging:
+                    vestigingsnummer: string
+                    kvkNummer: string
+                    rsin: string
+                    indNonMailing: string
+                    formeleRegistratiedatum: string
+                    materieleRegistratie:
+                      datumAanvang: string
+                      datumEinde: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indCommercieleVestiging: string
+                    voltijdWerkzamePersonen: 0
+                    totaalWerkzamePersonen: 0
+                    deeltijdWerkzamePersonen: 0
+                    handelsnamen:
+                      - naam: string
+                        volgorde: 0
+                    adressen:
+                      - binnenlandsAdres:
+                          type: bezoekadres
+                          straatnaam: string
+                          huisnummer: 0
+                          huisletter: string
+                          postbusnummer: 0
+                          postcode: string
+                          plaats: string
+                        buitenlandsAdres:
+                          type: bezoekadres
+                          straatHuisnummer: 53 Rue de Tilsitt
+                          postcodeWoonplaats: X-13501 Parijs
+                          land: Frankrijk
+                    websites:
+                      - string
+                    sbiActiviteiten:
+                      - sbiCode: string
+                        sbiOmschrijving: string
+                        indHoofdactiviteit: string
+                    links:
+                      - href: string
+                        title: string
+                  eigenaar:
+                    rsin: string
+                    rechtsvorm: string
+                    uitgebreideRechtsvorm: string
+                    adressen:
+                      - binnenlandsAdres:
+                          type: bezoekadres
+                          straatnaam: string
+                          huisnummer: 0
+                          huisletter: string
+                          postbusnummer: 0
+                          postcode: string
+                          plaats: string
+                        buitenlandsAdres:
+                          type: bezoekadres
+                          straatHuisnummer: 53 Rue de Tilsitt
+                          postcodeWoonplaats: X-13501 Parijs
+                          land: Frankrijk
+                    websites:
+                      - string
+                    links:
+                      - href: string
+                        title: string
+  '/v1/vestigingsprofielen/{vestigingsnummer}':
+    get:
+      tags:
+        - Vestigingsprofiel
+      summary: Voor een specifieke vestiging informatie opvragen.
+      description: Voor een specifieke vestiging informatie opvragen.
+      operationId: get-vestiging-by-vestigingsnummer
+      parameters:
+        - name: vestigingsnummer
+          in: path
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+          required: true
+          schema:
+            type: string
+        - name: geoData
+          in: query
+          description: 'GeoData: (true/false) geef aan of BAG data opgehaald moet worden'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: default response
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Vestiging'
+              example:
+                vestigingsnummer: string
+                kvkNummer: string
+                rsin: string
+                indNonMailing: string
+                formeleRegistratiedatum: string
+                materieleRegistratie:
+                  datumAanvang: string
+                  datumEinde: string
+                eersteHandelsnaam: string
+                indHoofdvestiging: string
+                indCommercieleVestiging: string
+                voltijdWerkzamePersonen: 0
+                totaalWerkzamePersonen: 0
+                deeltijdWerkzamePersonen: 0
+                handelsnamen:
+                  - naam: string
+                    volgorde: 0
+                adressen:
+                  - binnenlandsAdres:
+                      type: bezoekadres
+                      straatnaam: string
+                      huisnummer: 0
+                      huisletter: string
+                      postbusnummer: 0
+                      postcode: string
+                      plaats: string
+                    buitenlandsAdres:
+                      type: bezoekadres
+                      straatHuisnummer: 53 Rue de Tilsitt
+                      postcodeWoonplaats: X-13501 Parijs
+                      land: Frankrijk
+                websites:
+                  - string
+                sbiActiviteiten:
+                  - sbiCode: string
+                    sbiOmschrijving: string
+                    indHoofdactiviteit: string
+                links:
+                  - href: string
+                    title: string
+  '/v1/naamgevingen/kvknummer/{kvkNummer}':
+    get:
+      tags:
+        - Naamgeving
+      summary: Voor een specifiek bedrijf naamgeving informatie opvragen op basis van een kvkNummer
+      description: Voor een specifiek bedrijf naamgeving informatie opvragen op basis van een kvkNummer
+      operationId: naamgeving-bij-kvk-nummer
+      parameters:
+        - name: kvkNummer
+          in: path
+          description: '__Nederlands Kamer van Koophandel nummer__: bestaat uit 8 cijfers'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Het verzoek levert een resultaat op. Als geen resultaten worden gevonden die aan de path parameter voldoen, wordt een 404 NotFound teruggegeven.'
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Naamgeving'
+              example:
+                kvkNummer: '59581883'
+                rsin: '823807071'
+                statutaireNaam: Kamer van Koophandel
+                naam: Kamer van Koophandel
+                ookGenoemd: Kamer van Koophandel
+                startdatum: 20220421
+                einddatum: 20220421
+                vestigingen:
+                  - vestigingsnummer: string
+                    kvkNummer: string
+                    rsin: string
+                    indNonMailing: string
+                    formeleRegistratiedatum: string
+                    materieleRegistratie:
+                      datumAanvang: string
+                      datumEinde: string
+                    eersteHandelsnaam: string
+                    indHoofdvestiging: string
+                    indCommercieleVestiging: string
+                    voltijdWerkzamePersonen: 0
+                    totaalWerkzamePersonen: 0
+                    deeltijdWerkzamePersonen: 0
+                    handelsnamen:
+                      - naam: string
+                        volgorde: 0
+                    adressen:
+                      - binnenlandsAdres:
+                          type: bezoekadres
+                          straatnaam: string
+                          huisnummer: 0
+                          huisletter: string
+                          postbusnummer: 0
+                          postcode: string
+                          plaats: string
+                        buitenlandsAdres:
+                          type: bezoekadres
+                          straatHuisnummer: 53 Rue de Tilsitt
+                          postcodeWoonplaats: X-13501 Parijs
+                          land: Frankrijk
+                    websites:
+                      - string
+                    sbiActiviteiten:
+                      - sbiCode: string
+                        sbiOmschrijving: string
+                        indHoofdactiviteit: string
+                    links:
+                      - href: string
+                        title: string
+                _links:
+                  - title: Basisprofiel
+                    href: https://api.kvk.nl/api/v1/basisprofielen/59581883
+        '400':
+          description: ''
+        '401':
+          description: ''
+        '403':
+          description: ''
+        '404':
+          description: ''
+        '406':
+          description: ''
+        '500':
+          description: ''
+components:
+  schemas:
+    Adres:
+      type: object
+      properties:
+        binnenlandsAdres:
+          $ref: '#/components/schemas/BinnenlandsAdres'
+        buitenlandsAdres:
+          $ref: '#/components/schemas/BuitenlandsAdres'
+      description: Binnenlands of buitenlands adres
+    AdresType:
+      enum:
+        - bezoekadres
+        - postadres
+      type: string
+      description: Bezoekadres of postadres
+    BinnenlandsAdres:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AdresType'
+        straatnaam:
+          type: string
+        huisnummer:
+          type: integer
+          format: int32
+        huisletter:
+          type: string
+        postbusnummer:
+          type: integer
+          description: Postbusnummer wordt alleen getoond indien het een postadres betreft
+          format: int32
+        postcode:
+          type: string
+        plaats:
+          type: string
+    BuitenlandsAdres:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AdresType'
+        straatHuisnummer:
+          type: string
+          description: Het straat/huisnummer is een combinatie van de straat en huisnummer
+          example: 53 Rue de Tilsitt
+        postcodeWoonplaats:
+          type: string
+          description: De postcode/woonplaats is de combinatie van een eventuele postcode en woonplaats
+          example: X-13501 Parijs
+        land:
+          type: string
+          description: De naam van het land waar het adres bevindt
+          example: Frankrijk
+    Links:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+    Resultaat:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          description: Geeft aan op welke pagina je bent. Start vanaf pagina 1
+          format: int32
+        resultatenPerPagina:
+          type: integer
+          description: Geeft het aantal zoek resultaten per pagina weer
+          format: int32
+        totaal:
+          type: integer
+          description: Totaal aantal zoekresultaten gevonden. De API Zoeken toont max. 1000 resultaten.
+          format: int32
+        vorige:
+          type: string
+          description: Link naar de vorige pagina indien beschikbaar
+        volgende:
+          type: string
+          description: Link naar de volgende pagina indien beschikbaar
+        resultaten:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultaatItem'
+        _links:
+          $ref: '#/components/schemas/Links'
+    ResultaatItem:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: Nederlands Kamer van Koophandel nummer dat bestaat uit 8 cijfers
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer dat bestaat uit 9 cijfers
+        vestigingsnummer:
+          type: string
+          description: Vestigingsnummer dat bestaat uit 12 cijfers
+        naam:
+          type: string
+          description: De naam waaronder een vestiging of rechtspersoon handelt
+        adres:
+          $ref: '#/components/schemas/Adres'
+        type:
+          type: string
+          description: hoofdvestiging/nevenvestiging/rechtspersoon
+        actief:
+          type: string
+          description: Indicatie of inschrijving actief is
+        vervallenNaam:
+          type: string
+          description: Bevat de vervallen naam waaronder een vestiging of rechtspersoon heeft gehandeld
+        _links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        title:
+          type: string
+    Error:
+      type: object
+      properties:
+        fout:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fout'
+    Fout:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Foutcode
+        omschrijving:
+          type: string
+          description: Omschrijving van de foutmelding
+    Adres-1:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Correspondentieadres en/of bezoekadres
+        indAfgeschermd:
+          type: string
+          description: Indicatie of het adres is afgeschermd
+        volledigAdres:
+          type: string
+        straatnaam:
+          type: string
+        huisnummer:
+          type: integer
+          format: int32
+        huisnummerToevoeging:
+          type: string
+        huisletter:
+          type: string
+        toevoegingAdres:
+          type: string
+        postcode:
+          type: string
+        postbusnummer:
+          type: integer
+          format: int32
+        plaats:
+          type: string
+        straatHuisnummer:
+          type: string
+        postcodeWoonplaats:
+          type: string
+        regio:
+          type: string
+        land:
+          type: string
+        geoData:
+          $ref: '#/components/schemas/GeoData'
+    Basisprofiel:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        indNonMailing:
+          type: string
+          description: Hiermee geeft de onderneming aan geen ongevraagde reclame per post of verkoop aan de deur te willen ontvangen
+        naam:
+          type: string
+          description: Naam onder Maatschappelijke Activiteit
+        formeleRegistratiedatum:
+          type: string
+          description: Registratiedatum onderneming in HR
+        materieleRegistratie:
+          $ref: '#/components/schemas/MaterieleRegistratie'
+        totaalWerkzamePersonen:
+          type: integer
+          description: Totaal aantal werkzame personen
+          format: int32
+        statutaireNaam:
+          type: string
+          description: De naam van de onderneming wanneer er statuten geregistreerd zijn.
+        handelsnamen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Handelsnaam'
+          description: Alle namen waaronder een onderneming of vestiging handelt (op volgorde van registreren)
+        sbiActiviteiten:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBIActiviteit'
+          description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        _embedded:
+          $ref: '#/components/schemas/EmbeddedContainer'
+    Eigenaar:
+      type: object
+      properties:
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        rechtsvorm:
+          type: string
+        uitgebreideRechtsvorm:
+          type: string
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Adres'
+        websites:
+          type: array
+          items:
+            type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    EmbeddedContainer:
+      type: object
+      properties:
+        hoofdvestiging:
+          $ref: '#/components/schemas/Vestiging'
+        eigenaar:
+          $ref: '#/components/schemas/Eigenaar'
+    GeoData:
+      type: object
+      properties:
+        addresseerbaarObjectId:
+          type: string
+          description: Unieke BAG id
+        nummerAanduidingId:
+          type: string
+          description: Unieke BAG nummeraanduiding id
+        gpsLatitude:
+          type: number
+          description: Lengtegraad
+          format: double
+        gpsLongitude:
+          type: number
+          description: Breedtegraad
+          format: double
+        rijksdriehoekX:
+          type: number
+          description: Rijksdriehoek X-coördinaat
+          format: double
+        rijksdriehoekY:
+          type: number
+          description: Rijksdriehoek Y-coördinaat
+          format: double
+        rijksdriehoekZ:
+          type: number
+          description: Rijksdriehoek Z-coördinaat
+          format: double
+      description: Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
+    Handelsnaam:
+      type: object
+      properties:
+        naam:
+          type: string
+        volgorde:
+          type: integer
+          format: int32
+      description: Alle namen waaronder een vestiging handelt (op volgorde van registreren)
+    Link-1:
+      required:
+        - href
+      type: object
+      properties:
+        href:
+          type: string
+        title:
+          type: string
+          description: Omschrijving van de link
+    MaterieleRegistratie:
+      type: object
+      properties:
+        datumAanvang:
+          type: string
+          description: Startdatum onderneming
+        datumEinde:
+          type: string
+          description: Einddatum onderneming
+    SBIActiviteit:
+      type: object
+      properties:
+        sbiCode:
+          type: string
+        sbiOmschrijving:
+          type: string
+        indHoofdactiviteit:
+          type: string
+      description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+    Vestiging:
+      type: object
+      properties:
+        vestigingsnummer:
+          type: string
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        rsin:
+          type: string
+          description: Rechtspersonen Samenwerkingsverbanden Informatie Nummer
+        indNonMailing:
+          type: string
+          description: Hiermee geeft de onderneming aan geen ongevraagde reclame per post of verkoop aan de deur te willen ontvangen
+        formeleRegistratiedatum:
+          type: string
+          description: Registratiedatum onderneming in HR
+        materieleRegistratie:
+          $ref: '#/components/schemas/MaterieleRegistratie'
+        eersteHandelsnaam:
+          type: string
+          description: De naam waaronder een onderneming of vestiging handelt
+        indHoofdvestiging:
+          type: string
+          description: Hoofdvestiging (Ja/Nee)
+        indCommercieleVestiging:
+          type: string
+          description: Commerciele vestiging  (Ja/Nee)
+        voltijdWerkzamePersonen:
+          type: integer
+          description: Aantal voltijd werkzame personen
+        totaalWerkzamePersonen:
+          type: integer
+          description: Totaal aantal werkzame personen
+        deeltijdWerkzamePersonen:
+          type: integer
+          description: Aantal deeltijd werkzame personen
+        handelsnamen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Handelsnaam'
+          description: Alle namen waaronder een vestiging handelt (op volgorde van registreren)
+        adressen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Adres'
+        websites:
+          type: array
+          items:
+            type: string
+        sbiActiviteiten:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBIActiviteit'
+          description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    VestigingBasis:
+      type: object
+      properties:
+        vestigingsnummer:
+          type: string
+          description: 'Vestigingsnummer: uniek nummer dat bestaat uit 12 cijfers'
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        eersteHandelsnaam:
+          type: string
+          description: De naam waaronder een onderneming of vestiging handelt
+        indHoofdvestiging:
+          type: string
+          description: Hoofdvestiging (Ja/Nee)
+        indAdresAfgeschermd:
+          type: string
+          description: Indicatie of het adres is afgeschermd
+        indCommercieleVestiging:
+          type: string
+          description: Commerciele vestiging  (Ja/Nee)
+        volledigAdres:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    VestigingList:
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: 'Nederlands Kamer van Koophandel nummer: bestaat uit 8 cijfers'
+        aantalCommercieleVestigingen:
+          type: integer
+          format: int64
+        aantalNietCommercieleVestigingen:
+          type: integer
+          format: int64
+        totaalAantalVestigingen:
+          type: integer
+          format: int64
+        vestigingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/VestigingBasis'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    GeoData-1:
+      type: object
+      properties:
+        addresseerbaarObjectId:
+          type: string
+          description: Unieke BAG id
+        nummerAanduidingId:
+          type: string
+          description: Unieke BAG nummeraanduiding id
+        gpsLatitude:
+          type: number
+          description: Lengtegraad
+          format: double
+        gpsLongitude:
+          type: number
+          description: Breedtegraad
+          format: double
+        rijksdriehoekX:
+          type: number
+          description: Rijksdriehoek X-coördinaat
+          format: double
+        rijksdriehoekY:
+          type: number
+          description: Rijksdriehoek Y-coördinaat
+          format: double
+        rijksdriehoekZ:
+          type: number
+          description: Rijksdriehoek Z-coördinaat
+          format: double
+      description: Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
+    Handelsnaam-1:
+      type: object
+      properties:
+        naam:
+          type: string
+          description: De handelsnaam van de vestiging
+          example: Kamer van Koophandel
+        volgorde:
+          type: integer
+          description: Het volgorde nummer van een handelsnaam
+          example: 0
+      description: Een handelsnaam is een naam waaronder een vestiging van een onderneming handelt.
+    MaterieleRegistratie-1:
+      type: object
+      properties:
+        datumAanvang:
+          type: string
+          description: Startdatum onderneming
+        datumEinde:
+          type: string
+          description: Einddatum onderneming
+    SBIActiviteit-1:
+      type: object
+      properties:
+        sbiCode:
+          type: string
+        sbiOmschrijving:
+          type: string
+        indHoofdactiviteit:
+          type: string
+      description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
+    Vestiging-1:
+      oneOf:
+        - $ref: '#/components/schemas/CommercieleVestiging'
+        - $ref: '#/components/schemas/NietCommercieleVestiging'
+    Naamgeving:
+      required:
+        - kvkNummer
+      type: object
+      properties:
+        kvkNummer:
+          type: string
+          description: Nederlands Kamer van Koophandel nummer
+          example: '59581883'
+        rsin:
+          pattern: '^[0-9]{9}$'
+          type: string
+          description: "RSIN (Rechtspersonen en Samenwerkingsverbanden Informatienummer)\n\nHet RSIN kan voorloopnullen bevatten\n"
+          example: '823807071'
+        statutaireNaam:
+          type: string
+          description: De naam van de rechtspersoon die opgenomen is in de oprichtingsakte
+          example: Kamer van Koophandel
+        naam:
+          type: string
+          description: Naam of eerste handelsnaam van de inschrijving
+          example: Kamer van Koophandel
+        ookGenoemd:
+          type: string
+          description: 'Een andere naam waaronder de vereniging, stichtingen en vereniging van eigenaars ook bekend is'
+          example: Kamer van Koophandel
+        startdatum:
+          $ref: '#/components/schemas/Datum'
+        einddatum:
+          $ref: '#/components/schemas/Datum'
+        vestigingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vestiging'
+          description: Lijst van vestigingen
+        _links:
+          required:
+            - self
+            - basisprofiel
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            basisprofiel:
+              $ref: '#/components/schemas/Link'
+          description: URI naar API Basisprofiel voor het huidige kvknummer
+          example:
+            - title: Basisprofiel
+              href: https://api.kvk.nl/api/v1/basisprofielen/59581883
+    CommercieleVestiging:
+      required:
+        - vestigingsnummer
+      type: object
+      properties:
+        vestigingsnummer:
+          pattern: '^[0-9]{12}$'
+          type: string
+          description: Uniek nummer dat bestaat uit 12 cijfers
+          example: '000015063097'
+        eersteHandelsnaam:
+          type: string
+          description: De eerste handelsnaam van de Vestiging
+          example: Kamer van Koophandel
+        handelsnamen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Handelsnaam'
+          description: Alle namen waaronder een onderneming of vestiging handelt
+        _links:
+          required:
+            - vestigingsprofiel
+          type: object
+          properties:
+            vestigingsprofiel:
+              $ref: '#/components/schemas/Link'
+          description: URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
+          example:
+            - title: Vestigingsprofiel
+              href: https://api.kvk.nl/api/v1/vestigingsprofielen/000015063097
+      description: Alle namen waaronder een vestiging handelt (op volgorde van registratie)
+    NietCommercieleVestiging:
+      required:
+        - vestigingsnummer
+      type: object
+      properties:
+        vestigingsnummer:
+          pattern: '^[0-9]{12}$'
+          type: string
+          description: Uniek nummer dat bestaat uit 12 cijfers
+          example: '000015063097'
+        naam:
+          type: string
+          description: De naam van de Vestiging
+        ookGenoemd:
+          type: string
+          description: 'Een andere naam waaronder de vereniging, stichtingen en vereniging van eigenaars ook bekend is'
+        _links:
+          required:
+            - vestigingsprofiel
+          type: object
+          properties:
+            vestigingsprofiel:
+              $ref: '#/components/schemas/Link'
+          description: URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
+          example:
+            - title: Vestigingsprofiel
+              href: https://api.kvk.nl/api/v1/vestigingsprofielen/000015063097
+      description: De naam waaronder een niet commerciele vestiging bekend is
+    Datum:
+      type: string
+      description: "In het handelsregister hebben we voor verschillende dossiers niet de exacte datums kunnen vastleggen.\nWe volgen hier de Handels Register datum vastlegging voor.\nHierdoor kan bij een onbekend deel van een datum nullen bevatten.\nBij een volledig bekende datum is het formaat YYYYMMDD ( Jaar maand dag),\nwaarbij alleen cijfers zijn toegestaan, inclusief de 0 voor onbekende delen van de datum.\n\n__Mogelijke formaten van waarden__\n\n| Type            | Formaat   |\n| --------------- | --------- |\n| Volledige datum | 20150622  |\n| Dag onbekend    | 20150600  |\n| Maand onbekend  | 20150012  |\n| Datum onbekend  | 00000000  |\n"
+      example: '20220421'
+    Error-1:
+      type: object
+      properties:
+        fout:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fout'
+    Fout-1:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Foutcode
+        omschrijving:
+          type: string
+          description: Omschrijving van de foutmelding
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: apikey
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: apikey
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
+tags:
+  - name: Basisprofiel
