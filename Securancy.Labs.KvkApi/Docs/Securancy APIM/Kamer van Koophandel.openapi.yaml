@@ -842,7 +842,7 @@ components:
         omschrijving:
           type: string
           description: Omschrijving van de foutmelding
-    Adres-1:
+    VestigingAdres:
       type: object
       properties:
         type:
@@ -980,16 +980,7 @@ components:
           description: Rijksdriehoek Z-coördinaat
           format: double
       description: Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
-    Handelsnaam:
-      type: object
-      properties:
-        naam:
-          type: string
-        volgorde:
-          type: integer
-          format: int32
-      description: Alle namen waaronder een vestiging handelt (op volgorde van registreren)
-    Link-1:
+    NaamgevingLink:
       required:
         - href
       type: object
@@ -1064,7 +1055,7 @@ components:
         adressen:
           type: array
           items:
-            $ref: '#/components/schemas/Adres'
+            $ref: '#/components/schemas/VestigingAdres'
         websites:
           type: array
           items:
@@ -1128,37 +1119,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Link'
-    GeoData-1:
-      type: object
-      properties:
-        addresseerbaarObjectId:
-          type: string
-          description: Unieke BAG id
-        nummerAanduidingId:
-          type: string
-          description: Unieke BAG nummeraanduiding id
-        gpsLatitude:
-          type: number
-          description: Lengtegraad
-          format: double
-        gpsLongitude:
-          type: number
-          description: Breedtegraad
-          format: double
-        rijksdriehoekX:
-          type: number
-          description: Rijksdriehoek X-coördinaat
-          format: double
-        rijksdriehoekY:
-          type: number
-          description: Rijksdriehoek Y-coördinaat
-          format: double
-        rijksdriehoekZ:
-          type: number
-          description: Rijksdriehoek Z-coördinaat
-          format: double
-      description: Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
-    Handelsnaam-1:
+    Handelsnaam:
       type: object
       properties:
         naam:
@@ -1170,29 +1131,6 @@ components:
           description: Het volgorde nummer van een handelsnaam
           example: 0
       description: Een handelsnaam is een naam waaronder een vestiging van een onderneming handelt.
-    MaterieleRegistratie-1:
-      type: object
-      properties:
-        datumAanvang:
-          type: string
-          description: Startdatum onderneming
-        datumEinde:
-          type: string
-          description: Einddatum onderneming
-    SBIActiviteit-1:
-      type: object
-      properties:
-        sbiCode:
-          type: string
-        sbiOmschrijving:
-          type: string
-        indHoofdactiviteit:
-          type: string
-      description: Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
-    Vestiging-1:
-      oneOf:
-        - $ref: '#/components/schemas/CommercieleVestiging'
-        - $ref: '#/components/schemas/NietCommercieleVestiging'
     Naamgeving:
       required:
         - kvkNummer
@@ -1235,9 +1173,9 @@ components:
           type: object
           properties:
             self:
-              $ref: '#/components/schemas/Link'
+              $ref: '#/components/schemas/NaamgevingLink'
             basisprofiel:
-              $ref: '#/components/schemas/Link'
+              $ref: '#/components/schemas/NaamgevingLink'
           description: URI naar API Basisprofiel voor het huidige kvknummer
           example:
             - title: Basisprofiel
@@ -1267,7 +1205,7 @@ components:
           type: object
           properties:
             vestigingsprofiel:
-              $ref: '#/components/schemas/Link'
+              $ref: '#/components/schemas/NaamgevingLink'
           description: URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
           example:
             - title: Vestigingsprofiel
@@ -1295,7 +1233,7 @@ components:
           type: object
           properties:
             vestigingsprofiel:
-              $ref: '#/components/schemas/Link'
+              $ref: '#/components/schemas/NaamgevingLink'
           description: URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
           example:
             - title: Vestigingsprofiel
@@ -1305,22 +1243,6 @@ components:
       type: string
       description: "In het handelsregister hebben we voor verschillende dossiers niet de exacte datums kunnen vastleggen.\nWe volgen hier de Handels Register datum vastlegging voor.\nHierdoor kan bij een onbekend deel van een datum nullen bevatten.\nBij een volledig bekende datum is het formaat YYYYMMDD ( Jaar maand dag),\nwaarbij alleen cijfers zijn toegestaan, inclusief de 0 voor onbekende delen van de datum.\n\n__Mogelijke formaten van waarden__\n\n| Type            | Formaat   |\n| --------------- | --------- |\n| Volledige datum | 20150622  |\n| Dag onbekend    | 20150600  |\n| Maand onbekend  | 20150012  |\n| Datum onbekend  | 00000000  |\n"
       example: '20220421'
-    Error-1:
-      type: object
-      properties:
-        fout:
-          type: array
-          items:
-            $ref: '#/components/schemas/Fout'
-    Fout-1:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Foutcode
-        omschrijving:
-          type: string
-          description: Omschrijving van de foutmelding
   securitySchemes:
     apiKeyHeader:
       type: apiKey

@@ -1648,7 +1648,7 @@ namespace Securancy.Labs.KvkApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Adres1
+    public partial class VestigingAdres
     {
         /// <summary>
         /// Correspondentieadres en/of bezoekadres
@@ -1919,32 +1919,8 @@ namespace Securancy.Labs.KvkApi
 
     }
 
-    /// <summary>
-    /// Alle namen waaronder een vestiging handelt (op volgorde van registreren)
-    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Handelsnaam
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("naam")]
-        public string Naam { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("volgorde")]
-        public int? Volgorde { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Link1
+    public partial class NaamgevingLink
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("href")]
@@ -2115,7 +2091,7 @@ namespace Securancy.Labs.KvkApi
         public System.Collections.Generic.ICollection<Handelsnaam> Handelsnamen { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("adressen")]
-        public System.Collections.Generic.ICollection<Adres> Adressen { get; set; }
+        public System.Collections.Generic.ICollection<VestigingAdres> Adressen { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("websites")]
         public System.Collections.Generic.ICollection<string> Websites { get; set; }
@@ -2240,76 +2216,10 @@ namespace Securancy.Labs.KvkApi
     }
 
     /// <summary>
-    /// Basisregistratie Adressen en Gebouwen gegevens uit het kadaster
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GeoData1
-    {
-        /// <summary>
-        /// Unieke BAG id
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("addresseerbaarObjectId")]
-        public string AddresseerbaarObjectId { get; set; }
-
-        /// <summary>
-        /// Unieke BAG nummeraanduiding id
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("nummerAanduidingId")]
-        public string NummerAanduidingId { get; set; }
-
-        /// <summary>
-        /// Lengtegraad
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("gpsLatitude")]
-        public double? GpsLatitude { get; set; }
-
-        /// <summary>
-        /// Breedtegraad
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("gpsLongitude")]
-        public double? GpsLongitude { get; set; }
-
-        /// <summary>
-        /// Rijksdriehoek X-coördinaat
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekX")]
-        public double? RijksdriehoekX { get; set; }
-
-        /// <summary>
-        /// Rijksdriehoek Y-coördinaat
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekY")]
-        public double? RijksdriehoekY { get; set; }
-
-        /// <summary>
-        /// Rijksdriehoek Z-coördinaat
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("rijksdriehoekZ")]
-        public double? RijksdriehoekZ { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    /// <summary>
     /// Een handelsnaam is een naam waaronder een vestiging van een onderneming handelt.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Handelsnaam1
+    public partial class Handelsnaam
     {
         /// <summary>
         /// De handelsnaam van de vestiging
@@ -2324,108 +2234,6 @@ namespace Securancy.Labs.KvkApi
 
         [System.Text.Json.Serialization.JsonPropertyName("volgorde")]
         public int? Volgorde { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class MaterieleRegistratie1
-    {
-        /// <summary>
-        /// Startdatum onderneming
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("datumAanvang")]
-        public string DatumAanvang { get; set; }
-
-        /// <summary>
-        /// Einddatum onderneming
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("datumEinde")]
-        public string DatumEinde { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    /// <summary>
-    /// Code beschrijving van SBI activiteiten conform SBI 2008 (Standard Industrial Classification). Er wordt geen maximering toegepast in de resultaten. Zie ook KVK.nl/sbi
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SBIActiviteit1
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("sbiCode")]
-        public string SbiCode { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("sbiOmschrijving")]
-        public string SbiOmschrijving { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("indHoofdactiviteit")]
-        public string IndHoofdactiviteit { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    /// <summary>
-    /// Alle namen waaronder een vestiging handelt (op volgorde van registratie)
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Vestiging1
-    {
-        /// <summary>
-        /// Uniek nummer dat bestaat uit 12 cijfers
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("vestigingsnummer")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[0-9]{12}$")]
-        public string Vestigingsnummer { get; set; }
-
-        /// <summary>
-        /// De eerste handelsnaam van de Vestiging
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("eersteHandelsnaam")]
-        public string EersteHandelsnaam { get; set; }
-
-        /// <summary>
-        /// Alle namen waaronder een onderneming of vestiging handelt
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("handelsnamen")]
-        public System.Collections.Generic.ICollection<Handelsnaam> Handelsnamen { get; set; }
-
-        /// <summary>
-        /// URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("_links")]
-        public _links _links { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -2499,6 +2307,53 @@ namespace Securancy.Labs.KvkApi
         /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("_links")]
+        public _links _links { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Alle namen waaronder een vestiging handelt (op volgorde van registratie)
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CommercieleVestiging
+    {
+        /// <summary>
+        /// Uniek nummer dat bestaat uit 12 cijfers
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsnummer")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[0-9]{12}$")]
+        public string Vestigingsnummer { get; set; }
+
+        /// <summary>
+        /// De eerste handelsnaam van de Vestiging
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("eersteHandelsnaam")]
+        public string EersteHandelsnaam { get; set; }
+
+        /// <summary>
+        /// Alle namen waaronder een onderneming of vestiging handelt
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("handelsnamen")]
+        public System.Collections.Generic.ICollection<Handelsnaam> Handelsnamen { get; set; }
+
+        /// <summary>
+        /// URI naar API Vestigingsprofiel voor het huidige vestigingsnummer
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("_links")]
         public _links2 _links { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -2560,52 +2415,6 @@ namespace Securancy.Labs.KvkApi
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Error1
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("fout")]
-        public System.Collections.Generic.ICollection<Fout> Fout { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Fout1
-    {
-        /// <summary>
-        /// Foutcode
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("code")]
-        public string Code { get; set; }
-
-        /// <summary>
-        /// Omschrijving van de foutmelding
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("omschrijving")]
-        public string Omschrijving { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum Anonymous
     {
 
@@ -2624,9 +2433,13 @@ namespace Securancy.Labs.KvkApi
     public partial class _links
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("vestigingsprofiel")]
+        [System.Text.Json.Serialization.JsonPropertyName("self")]
         [System.ComponentModel.DataAnnotations.Required]
-        public Link Vestigingsprofiel { get; set; } = new Link();
+        public NaamgevingLink Self { get; set; } = new NaamgevingLink();
+
+        [System.Text.Json.Serialization.JsonPropertyName("basisprofiel")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public NaamgevingLink Basisprofiel { get; set; } = new NaamgevingLink();
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -2643,13 +2456,9 @@ namespace Securancy.Labs.KvkApi
     public partial class _links2
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("self")]
+        [System.Text.Json.Serialization.JsonPropertyName("vestigingsprofiel")]
         [System.ComponentModel.DataAnnotations.Required]
-        public Link Self { get; set; } = new Link();
-
-        [System.Text.Json.Serialization.JsonPropertyName("basisprofiel")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public Link Basisprofiel { get; set; } = new Link();
+        public NaamgevingLink Vestigingsprofiel { get; set; } = new NaamgevingLink();
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -2668,7 +2477,7 @@ namespace Securancy.Labs.KvkApi
 
         [System.Text.Json.Serialization.JsonPropertyName("vestigingsprofiel")]
         [System.ComponentModel.DataAnnotations.Required]
-        public Link Vestigingsprofiel { get; set; } = new Link();
+        public NaamgevingLink Vestigingsprofiel { get; set; } = new NaamgevingLink();
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
