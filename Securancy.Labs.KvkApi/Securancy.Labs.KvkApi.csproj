@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
 
     <!-- NuGet Settings -->
     <PackageId>Securancy.Labs.KvkApi</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <Authors>hanssens</Authors>
     <Company>Securancy Intelligence</Company>
     <RepositoryUrl>https://github.com/securancy/kvk-api-dotnet</RepositoryUrl>
